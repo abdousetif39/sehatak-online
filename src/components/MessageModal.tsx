@@ -1,7 +1,6 @@
 import React from 'react';
 import { CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import MessageModal from '../../components/MessageModal';
 interface MessageModalProps {
   isOpen: boolean;
   onClose: () => void;

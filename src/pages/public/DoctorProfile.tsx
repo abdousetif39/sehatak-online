@@ -68,6 +68,7 @@ import { useTranslation } from 'react-i18next';
 import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName } from '../../utils/doctorUtils';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
+import MessageModal from '../../components/MessageModal';
 
 export default function DoctorProfile() {
   const { t, i18n } = useTranslation();
