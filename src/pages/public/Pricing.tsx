@@ -105,11 +105,11 @@ export default function Pricing() {
         <h2 className="text-2xl font-bold text-slate-900 mb-4">{t('subscribe_question')}</h2>
         <p className="text-slate-600 mb-6">{t('subscribe_contact_text')}</p>
         <a 
-          href="mailto:sehatakonline@gmail.com" 
+          href="mailto:sehatekonline2020@gmail.com" 
           className="inline-flex items-center gap-2 text-lg font-bold text-blue-600 hover:text-blue-700 hover:underline transition-colors bg-blue-50 px-6 py-3 rounded-2xl"
           dir="ltr"
         >
-          📧 sehatakonline@gmail.com
+          📧 sehatekonline2020@gmail.com
         </a>
       </div>
     </div>
