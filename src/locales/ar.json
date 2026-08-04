@@ -18,6 +18,7 @@
   "status_booked": "محجوز",
   "status_examined": "تم الفحص",
   "status_cancelled": "ملغي",
+  "no_show": "لم يحضر",
   "status_no_show": "لم يحضر",
   "doctor": "الطبيب",
   "appointment_duration": "مدة الموعد (بالدقائق)",

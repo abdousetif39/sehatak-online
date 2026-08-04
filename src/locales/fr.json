@@ -19,6 +19,7 @@
   "status_examined": "Examiné",
   "status_cancelled": "Annulé",
   "status_no_show": "Non présenté",
+  "no_show": "Absent",
   "doctor": "Médecin",
   "appointment_duration": "Durée du rendez-vous (en minutes)",
   "minutes": "minutes",
