@@ -1,4 +1,5 @@
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
+import MessageModal from '../../components/MessageModal';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, query, orderBy, writeBatch } from 'firebase/firestore';
 import { db, auth, secondaryAuth } from '../../lib/firebase';
@@ -17,6 +18,12 @@ export default function AppointmentsViewer() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
 
   const fetchData = async () => {
     setLoading(true);
@@ -70,7 +77,12 @@ export default function AppointmentsViewer() {
       setItemToDelete(null);
     } catch(e: any) {
       console.error("Delete Error:", { id, collection: 'appointments/public_slots', errorCode: e.code, message: e.message });
-      alert(`${t('delete_failed')}: ${e.message}`);
+      setMessageModal({
+      open: true,
+      type: "error",
+      title: t("error"),
+      message: `${t('delete_failed')}: ${e.message}`,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -143,6 +155,20 @@ export default function AppointmentsViewer() {
           </div>
         </div>
       )}
+      <MessageModal
+      isOpen={messageModal.open}
+      type={messageModal.type}
+      title={messageModal.title}
+      message={messageModal.message}
+      onClose={() =>
+      setMessageModal({
+      open: false,
+      type: "info",
+      title: "",
+      message: "",
+    })
+  }
+/>
       <ConfirmDeleteModal
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
@@ -150,7 +176,7 @@ export default function AppointmentsViewer() {
         loading={isDeleting}
         title={t('confirm_delete_appointment_title')}
 
-message={t('confirm_delete_appointment_desc')}
+        message={t('confirm_delete_appointment_desc')}
       />
     </div>
   );

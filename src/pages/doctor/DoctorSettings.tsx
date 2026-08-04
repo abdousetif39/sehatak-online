@@ -18,6 +18,7 @@ import LocationPicker from '../../components/LocationPicker';
 import BreakSettings from "../../components/doctor/BreakSettings";
 import { WILAYAS, COMMUNES } from '../../data/algeria-data';
 import SuccessModal from "../../components/SuccessModal";
+import MessageModal from "../../components/MessageModal";
 import VacationSettings from "../../components/doctor/VacationSettings";
 
 export default function DoctorSettings() {
@@ -40,6 +41,12 @@ export default function DoctorSettings() {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
 
   const [formData, setFormData] = useState<Partial<Doctor>>({
     name: '',
@@ -242,7 +249,12 @@ export default function DoctorSettings() {
 
   const handleCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert(t('geolocation_not_supported'));
+      setMessageModal({
+      open: true,
+      type: "warning",
+      title: t("warning"),
+      message: t("geolocation_not_supported"),
+      });
       return;
     }
     setIsLocating(true);
@@ -264,7 +276,12 @@ export default function DoctorSettings() {
       } else if (err.code === 3) {
         msg = t('geolocation_timeout');
       }
-      alert(msg);
+      setMessageModal({
+      open: true,
+      type: "warning",
+      title: t("warning"),
+      message: msg,
+      });
     };
 
     navigator.geolocation.getCurrentPosition(
@@ -679,14 +696,27 @@ title={t("latin_letters_only")}
           </div>
         </form>
       </div>
-
-      <SuccessModal
-  isOpen={successOpen}
-  onClose={() => setSuccessOpen(false)}
-  title={t("saved_successfully")}
-  message={t("doctor_settings_saved")}
-/>
-    </div>
-  );
+        <MessageModal
+        isOpen={messageModal.open}
+        type={messageModal.type}
+        title={messageModal.title}
+        message={messageModal.message}
+        onClose={() =>
+        setMessageModal({
+        open: false,
+        type: "info",
+        title: "",
+        message: "",
+        })
+        }
+        />
+        <SuccessModal
+        isOpen={successOpen}
+        onClose={() => setSuccessOpen(false)}
+        title={t("saved_successfully")}
+        message={t("doctor_settings_saved")}
+        />
+        </div>
+        );
   
 }

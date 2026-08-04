@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { getDoctorFullName } from '../../utils/doctorUtils';
 import { COLLECTIONS, ROLES } from '../../lib/constants';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
+import MessageModal from '../../components/MessageModal';
 
 export default function ReceptionistsManager() {
   const { t, i18n } = useTranslation();
@@ -19,6 +20,12 @@ export default function ReceptionistsManager() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<any | null>(null);
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
 
   const fetchData = async () => {
     setLoading(true);
@@ -63,7 +70,12 @@ export default function ReceptionistsManager() {
       setItemToDelete(null);
     } catch(e: any) {
       console.error("Delete Error:", { id, collection: COLLECTIONS.USERS, errorCode: e.code, message: e.message });
-      alert(`${t('delete_failed')}: ${e.message}`);
+      setMessageModal({
+      open: true,
+      type: "error",
+      title: t("error"),
+      message: `${t('delete_failed')}: ${e.message}`,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -136,6 +148,30 @@ export default function ReceptionistsManager() {
           onSuccess={() => { setIsModalOpen(false); fetchData(); }} 
         />
       )}
+      <MessageModal
+      isOpen={messageModal.open}
+      type={messageModal.type}
+      title={messageModal.title}
+      message={messageModal.message}
+      onClose={() =>
+      setMessageModal({
+      open: false,
+      type: "info",
+      title: "",
+      message: "",
+    })
+  }
+/>
+
+<ConfirmDeleteModal
+  isOpen={deleteModalOpen}
+  onClose={() => setDeleteModalOpen(false)}
+  onConfirm={handleDelete}
+  loading={isDeleting}
+  title={t('confirm_delete_receptionist_title')}
+  message={t('confirm_delete_receptionist_desc')}
+/>
+
     </div>
   );
 }

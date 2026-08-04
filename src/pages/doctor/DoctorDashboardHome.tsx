@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, updateDoc, doc, orderBy, writeBatch } from 'firebase/firestore';
 import { db, auth, secondaryAuth } from '../../lib/firebase';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
+import MessageModal from '../../components/MessageModal';
 import { COLLECTIONS, ROLES, WEEKDAYS } from '../../lib/constants';
 import { useAuth } from '../../hooks/useAuth';
 import { Appointment } from '../../types';
@@ -20,7 +21,12 @@ export default function DoctorDashboardHome() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-
+const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
   const fetchAppointments = async () => {
     if (!user) return;
     setLoading(true);
@@ -56,10 +62,20 @@ const batch = writeBatch(db);
       }
       await batch.commit();
       setAppointments(prev => prev.map(app => app.id === id ? { ...app, status } : app));
-      alert(t('status_updated'));
+      setMessageModal({
+  open: true,
+  type: "success",
+  title: t("success"),
+  message: t("status_updated"),
+});
     } catch (e: any) {
       console.error("Update Error:", { id, collection: COLLECTIONS.APPOINTMENTS, errorCode: e.code, message: e.message });
-      alert(`${t('update_failed')}: ${e.message}`);
+      setMessageModal({
+  open: true,
+  type: "error",
+  title: t("error"),
+  message: `${t('update_failed')}: ${e.message}`,
+});
     }
   };
 
@@ -84,7 +100,12 @@ const batch = writeBatch(db);
       setItemToDelete(null);
     } catch (e: any) {
       console.error("Delete Error:", { id, collection: 'appointments/public_slots', errorCode: e.code, message: e.message });
-      alert(`${t('delete_failed')}: ${e.message}`);
+      setMessageModal({
+      open: true,
+      type: "error",
+      title: t("error"),
+      message: `${t('delete_failed')}: ${e.message}`,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -199,6 +220,20 @@ const batch = writeBatch(db);
           </div>
         </div>
       )}
+      <MessageModal
+      isOpen={messageModal.open}
+      type={messageModal.type}
+      title={messageModal.title}
+      message={messageModal.message}
+      onClose={() =>
+      setMessageModal({
+      open: false,
+      type: "info",
+      title: "",
+      message: "",
+    })
+  }
+/>
       <ConfirmDeleteModal
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { getDoctorFullName, getDoctorSpecialty } from '../../utils/doctorUtils';
 import { COLLECTIONS, ROLES } from '../../lib/constants';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
-
+import MessageModal from '../../components/MessageModal';
 export default function DoctorsManager() {
   const { t, i18n } = useTranslation();
   const [users, setUsers] = useState<any[]>([]);
@@ -20,7 +20,12 @@ export default function DoctorsManager() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<any | null>(null);
-
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -80,7 +85,12 @@ export default function DoctorsManager() {
       setItemToDelete(null);
     } catch(e: any) {
       console.error("Delete Error:", { id, collection: 'users/doctors', errorCode: e.code, message: e.message });
-      alert(`${t('delete_failed')}: ${e.message}`);
+      setMessageModal({
+      open: true,
+      type: "error",
+      title: t("error"),
+      message: `${t('delete_failed')}: ${e.message}`,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -100,14 +110,7 @@ export default function DoctorsManager() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">{t('menu_doctors')}</h1>
-              <ConfirmDeleteModal
-        isOpen={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        onConfirm={handleDelete}
-        loading={isDeleting}
-        title={t('confirm_delete_doctor_title')}
-        message={t('confirm_delete_doctor_desc')}
-      />
+              
     </div>
         <button onClick={() => { setEditingUser(null); setIsModalOpen(true); }} className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors shadow-sm">
           <Plus className="w-4 h-4" />
@@ -181,6 +184,30 @@ export default function DoctorsManager() {
           onSuccess={() => { setIsModalOpen(false); fetchData(); }} 
         />
       )}
+        <MessageModal
+        isOpen={messageModal.open}
+        type={messageModal.type}
+        title={messageModal.title}
+        message={messageModal.message}
+        onClose={() =>
+        setMessageModal({
+        open: false,
+        type: "info",
+        title: "",
+        message: "",
+    })
+  }
+/>
+
+<ConfirmDeleteModal
+  isOpen={deleteModalOpen}
+  onClose={() => setDeleteModalOpen(false)}
+  onConfirm={handleDelete}
+  loading={isDeleting}
+  title={t('confirm_delete_doctor_title')}
+  message={t('confirm_delete_doctor_desc')}
+/>
+
     </div>
   );
 }

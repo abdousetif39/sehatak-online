@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, X, Check } from 'lucide-react';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
+import MessageModal from '../../components/MessageModal';
 
 export default function StaffManager() {
   const { t } = useTranslation();
@@ -18,6 +19,12 @@ export default function StaffManager() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
 
   const fetchStaff = async () => {
     if (!currentUser) return;
@@ -56,7 +63,12 @@ export default function StaffManager() {
       setItemToDelete(null);
     } catch (e: any) {
       console.error("Delete Error:", { id, collection: COLLECTIONS.USERS, errorCode: e.code, message: e.message });
-      alert(`${t('delete_failed')}: ${e.message}`);
+      setMessageModal({
+  open: true,
+  type: "error",
+  title: t("error"),
+  message: `${t('delete_failed')}: ${e.message}`,
+});
     } finally {
       setIsDeleting(false);
     }
@@ -119,6 +131,18 @@ export default function StaffManager() {
           doctorId={currentUser!.id}
         />
       )}
+      <MessageModal
+  isOpen={messageModal.open}
+  type={messageModal.type}
+  title={messageModal.title}
+  message={messageModal.message}
+  onClose={() =>
+    setMessageModal(prev => ({
+      ...prev,
+      open: false
+    }))
+  }
+/>
 
       <ConfirmDeleteModal
         isOpen={deleteModalOpen}

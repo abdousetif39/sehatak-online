@@ -99,7 +99,12 @@ export default function DoctorProfile() {
 
   // Calendar state
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "info" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
   useEffect(() => {
     const fetchDoctor = async () => {
       if (!id) return;
@@ -254,11 +259,21 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
     e.preventDefault();
     if (!doctor || !id) return;
     if (isVacationDay(doctor, selectedDate)) {
-  alert(t("doctor_on_vacation"));
+    setMessageModal({
+    open: true,
+    type: "warning",
+    title: t("warning"),
+    message: t("doctor_on_vacation"),
+    });
   return;
 }
     if (!selectedTime) {
-      alert(t('error_no_time'));
+      setMessageModal({
+      open: true,
+      type: "warning",
+      title: t("warning"),
+      message: t("error_no_time"),
+      });
       return;
     }
     
@@ -298,7 +313,12 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
       setSelectedTime('');
     } catch (error) {
       console.error(error);
-      alert(t('booking_error') + ' : ' + (error as any).message);
+      setMessageModal({
+      open: true,
+      type: "error",
+      title: t("error"),
+      message: `${t('booking_error')} : ${(error as any).message}`,
+      });
     } finally {
       setSubmitting(false);
     }
@@ -583,14 +603,14 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                         <span className="text-xl font-bold my-0.5">{format(date, 'dd')}</span>
                         <span className="text-[10px] font-medium opacity-80">{format(date, 'MMM yyyy')}</span>
                         {isVacation ? (
-  <span className="text-[10px] text-orange-600 font-bold mt-1 bg-orange-50 px-2 py-0.5 rounded-full">
-    {t("doctor_on_vacation")}
-  </span>
-) : isFullyBooked ? (
-  <span className="text-[10px] text-red-500 font-bold mt-1 bg-red-50 px-2 py-0.5 rounded-full">
-    {t("fully_booked")}
-  </span>
-) : null}
+                        <span className="text-[10px] text-orange-600 font-bold mt-1 bg-orange-50 px-2 py-0.5 rounded-full">
+                        {t("doctor_on_vacation")}
+                        </span>
+                        ) : isFullyBooked ? (
+                        <span className="text-[10px] text-red-500 font-bold mt-1 bg-red-50 px-2 py-0.5 rounded-full">
+                        {t("fully_booked")}
+                        </span>
+                        ) : null}
                       </button>
                     )
                   })}
@@ -694,6 +714,20 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
         </div>
 
       </div>
+      <MessageModal
+      isOpen={messageModal.open}
+      type={messageModal.type}
+      title={messageModal.title}
+      message={messageModal.message}
+      onClose={() =>
+      setMessageModal({
+      open: false,
+      type: "info",
+      title: "",
+      message: "",
+    })
+  }
+/>
     </div>
   );
 }
