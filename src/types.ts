@@ -5,6 +5,10 @@ export interface User {
   email: string;
   role: Role;
   doctorId?: string;
+  firstName?: string;
+  lastName?: string;
+  receptionistName?: string;
+  phone?: string;
 }
 
 export interface DoctorVacation {
@@ -21,6 +25,7 @@ export interface DoctorVacation {
 }
 
 export interface Doctor {
+  slug?: string;
   id: string;
 
   // =========================

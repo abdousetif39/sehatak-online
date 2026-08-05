@@ -3,7 +3,7 @@ import { Doctor } from '../../types';
 import { MapPin, Stethoscope, Calendar as CalendarIcon, Clock, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName } from '../../utils/doctorUtils';
+import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
 import { addDays, getDay, parse, addMinutes, format, isBefore, isSameDay } from 'date-fns';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -149,14 +149,44 @@ current = addMinutes(current, doctor.appointmentDuration || 15);
       </div>
       
       <div className="flex flex-col gap-2 mb-4 bg-slate-50 p-3 rounded-xl">
-        <div className="flex items-center gap-1.5 text-sm text-slate-500">
-          <MapPin className="w-4 h-4 shrink-0 text-slate-400" />
-          <span className="truncate">{getStateName(doctor.state, i18n.language)} - {getCityName(doctor.state, doctor.city, i18n.language)} - {doctor.address}</span>
-        </div>
+        {/* Address */}
+        {doctor.address && (
+          <div className="flex items-start gap-1.5 text-sm text-slate-500">
+            <MapPin className="w-4 h-4 shrink-0 text-slate-400 mt-0.5" />
+            <span className="break-words">{doctor.address}</span>
+          </div>
+        )}
+        
+        {/* City and State */}
+        {(doctor.city || doctor.state) && (
+          <div className="flex items-start gap-1.5 text-sm text-slate-500">
+            <MapPin className={`w-4 h-4 shrink-0 mt-0.5 ${doctor.address ? 'text-transparent' : 'text-slate-400'}`} />
+            <span className="break-words">
+              {[getCityName(doctor.state, doctor.city, i18n.language), getStateName(doctor.state, i18n.language)].filter(Boolean).join(' - ')}
+            </span>
+          </div>
+        )}
+        
+        {/* Phone */}
         {doctor.showPhoneInCard && doctor.phone && (
-          <div className="flex items-center gap-1.5 text-sm text-slate-500 font-medium" dir="ltr">
+          <div className="flex items-center gap-1.5 text-sm text-slate-500 font-medium">
             <Phone className="w-4 h-4 shrink-0 text-blue-500" />
-            <span>{doctor.phone}</span>
+            <span dir="ltr" className="whitespace-nowrap">{doctor.phone}</span>
+          </div>
+        )}
+
+        {/* Working Days & Hours */}
+        {(doctor.workingDays?.length > 0 || (doctor.startTime && doctor.endTime)) && (
+          <div className="flex items-start gap-1.5 text-sm text-slate-500">
+            <CalendarIcon className="w-4 h-4 shrink-0 text-slate-400 mt-0.5" />
+            <div className="flex flex-col items-start">
+              {doctor.workingDays?.length > 0 && (
+                <span>{formatWorkingDays(doctor.workingDays, t)}</span>
+              )}
+              {doctor.startTime && doctor.endTime && (
+                <span className="text-slate-400 text-xs" dir="ltr">{doctor.startTime} - {doctor.endTime}</span>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -188,7 +218,7 @@ current = addMinutes(current, doctor.appointmentDuration || 15);
       
       {nextSlot ? (
         <Link 
-          to={`/p/${doctor.id}`}
+          to={`/doctors/${doctor.slug || doctor.id}`}
           className="mt-auto w-full py-2.5 px-4 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
         >
           {t('book_appointment')}

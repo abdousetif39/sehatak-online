@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, collection, query, where, getDocs, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -56,6 +56,22 @@ const isVacationDay = (
   });
 };
 
+const getVacationReason = (
+  doctor: Doctor,
+  date: Date,
+  lang: string
+) => {
+  if (!doctor.vacations?.length) return null;
+  const selected = format(date, "yyyy-MM-dd");
+  const vacation = doctor.vacations.find(
+    (v) => selected >= v.startDate && selected <= v.endDate
+  );
+  if (!vacation) return null;
+  
+  const reason = lang === 'ar' ? vacation.descriptionAr : vacation.descriptionFr;
+  return reason || null;
+};
+
 // Fix leaflet icon
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -65,7 +81,8 @@ L.Icon.Default.mergeOptions({
 });
 import { format, parse, addMinutes, isBefore, addDays, getDay, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName } from '../../utils/doctorUtils';
+import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
+import { getStateName, getCityName } from '../../utils/locationUtils';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 import MessageModal from '../../components/MessageModal';
@@ -79,6 +96,13 @@ export default function DoctorProfile() {
   
   // Booking state
   const [selectedDate, setSelectedDate] = useState<Date>(startOfDay(new Date()));
+  const selectedDayRef = useRef<HTMLButtonElement>(null);
+  
+  useEffect(() => {
+    if (selectedDayRef.current) {
+      selectedDayRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [selectedDate, loading]);
   const [viewStartDate, setViewStartDate] = useState<Date>(startOfDay(new Date()));
   const [weeklyBookedSlots, setWeeklyBookedSlots] = useState<Record<string, string[]>>({});
   const [selectedTime, setSelectedTime] = useState<string>('');
@@ -110,9 +134,21 @@ export default function DoctorProfile() {
     const fetchDoctor = async () => {
       if (!id) return;
       try {
-        const d = await getDoc(doc(db, COLLECTIONS.DOCTORS, id));
+        let d = await getDoc(doc(db, COLLECTIONS.DOCTORS, id));
+        let docData: Doctor | null = null;
+        
         if (d.exists()) {
-          const docData = d.data() as Doctor;
+          docData = d.data() as Doctor;
+        } else {
+          // Fallback to query by slug
+          const q = query(collection(db, COLLECTIONS.DOCTORS), where("slug", "==", id));
+          const snapshot = await getDocs(q);
+          if (!snapshot.empty) {
+            docData = snapshot.docs[0].data() as Doctor;
+          }
+        }
+        
+        if (docData) {
           setDoctor(docData);
           
           // If today is not a working day, find next working day
@@ -142,7 +178,7 @@ export default function DoctorProfile() {
       try {
         const promises = dates.map(dateStr => getDocs(query(
           collection(db, COLLECTIONS.PUBLIC_SLOTS),
-          where('doctorId', '==', id),
+          where('doctorId', '==', doctor.id),
           where('date', '==', dateStr)
         )));
         
@@ -281,11 +317,11 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
     setSubmitting(true);
     try {
       const formattedDate = format(selectedDate, 'yyyy-MM-dd');
-      const appointmentId = `${id}_${formattedDate}_${selectedTime}`;
+      const appointmentId = `${doctor.id}_${formattedDate}_${selectedTime}`;
       
       const appointment: any = {
         id: appointmentId,
-        doctorId: id,
+        doctorId: doctor.id,
         doctorName: getDoctorFullName(doctor, i18n.language) || doctor.name,
         patientName: formData.firstName,
         patientLastName: formData.lastName,
@@ -302,7 +338,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
       const batch = writeBatch(db);
       batch.set(doc(db, COLLECTIONS.APPOINTMENTS, appointmentId), appointment);
       batch.set(doc(db, COLLECTIONS.PUBLIC_SLOTS, appointmentId), {
-        doctorId: id,
+        doctorId: doctor.id,
         date: formattedDate,
         time: selectedTime
       });
@@ -439,17 +475,43 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
             </div>
             
             
-            <div className="space-y-4 pt-6 border-t border-slate-100">
-              {doctor.showPhoneInCard && doctor.phone && (
-                <div className="flex items-start gap-3 text-slate-600 text-sm mb-4 font-medium" dir="ltr">
-                  <Phone className="w-5 h-5 shrink-0 text-blue-500" />
-                  <span>{doctor.phone}</span>
+            <div className="space-y-4 pt-6 border-t border-slate-100 text-sm">
+              {doctor.address && (
+                <div className="flex items-start gap-3 text-slate-600">
+                  <MapPin className="w-5 h-5 shrink-0 text-slate-400 mt-0.5" />
+                  <span className="break-words">{doctor.address}</span>
                 </div>
               )}
-              <div className="flex items-start gap-3 text-slate-600 text-sm mb-4">
-                <MapPin className="w-5 h-5 shrink-0 text-slate-400" />
-                <span>{doctor.address}</span>
-              </div>
+              
+              {(doctor.city || doctor.state) && (
+                <div className="flex items-start gap-3 text-slate-600">
+                  <MapPin className={`w-5 h-5 shrink-0 mt-0.5 ${doctor.address ? 'text-transparent' : 'text-slate-400'}`} />
+                  <span className="break-words">
+                    {[getCityName(doctor.state, doctor.city, i18n.language), getStateName(doctor.state, i18n.language)].filter(Boolean).join(' - ')}
+                  </span>
+                </div>
+              )}
+              
+              {doctor.showPhoneInCard && doctor.phone && (
+                <div className="flex items-center gap-3 text-slate-600 font-medium">
+                  <Phone className="w-5 h-5 shrink-0 text-blue-500" />
+                  <span dir="ltr" className="whitespace-nowrap">{doctor.phone}</span>
+                </div>
+              )}
+              
+              {(doctor.workingDays?.length > 0 || (doctor.startTime && doctor.endTime)) && (
+                <div className="flex items-start gap-3 text-slate-600">
+                  <CalendarIcon className="w-5 h-5 shrink-0 text-slate-400 mt-0.5" />
+                  <div className="flex flex-col items-start">
+                    {doctor.workingDays?.length > 0 && (
+                      <span>{formatWorkingDays(doctor.workingDays, t)}</span>
+                    )}
+                    {doctor.startTime && doctor.endTime && (
+                      <span className="text-slate-400 text-xs" dir="ltr">{doctor.startTime} - {doctor.endTime}</span>
+                    )}
+                  </div>
+                </div>
+              )}
               
               {doctor.latitude && doctor.longitude && (
                 <div className="border border-slate-200 rounded-2xl overflow-hidden">
@@ -585,6 +647,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                     return (
                       <button
                         key={i}
+                        ref={isSelected ? selectedDayRef : null}
                         disabled={!isWorkingDay || isVacation || isFullyBooked}
                         onClick={() => setSelectedDate(date)}
                         className={`flex-shrink-0 snap-start w-24 py-3 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all border ${
@@ -604,9 +667,16 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                         <span className="text-xl font-bold my-0.5">{format(date, 'dd')}</span>
                         <span className="text-[10px] font-medium opacity-80">{format(date, 'MMM yyyy')}</span>
                         {isVacation ? (
-                        <span className="text-[10px] text-orange-600 font-bold mt-1 bg-orange-50 px-2 py-0.5 rounded-full">
-                        {t("doctor_on_vacation")}
-                        </span>
+                        <>
+                          <span className="text-[10px] text-orange-600 font-bold mt-1 bg-orange-50 px-2 py-0.5 rounded-full">
+                          {t("doctor_on_vacation")}
+                          </span>
+                          {getVacationReason(doctor, date, i18n.language) && (
+                            <span className="text-[9px] text-orange-500 text-center mt-1 truncate w-full px-1">
+                              {getVacationReason(doctor, date, i18n.language)}
+                            </span>
+                          )}
+                        </>
                         ) : isFullyBooked ? (
                         <span className="text-[10px] text-red-500 font-bold mt-1 bg-red-50 px-2 py-0.5 rounded-full">
                         {t("fully_booked")}
@@ -655,11 +725,23 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                 ) : (
                   <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-100">
                     <Clock className="w-8 h-8 text-slate-300 mx-auto mb-3" />
-                    <p className="text-slate-500 font-medium">
-                    {isVacationDay(doctor, selectedDate)
-                    ? t("doctor_on_vacation")
-                    : t("no_appointments_available")}
-                    </p>
+                    <div className="text-slate-500 font-medium">
+                    {isVacationDay(doctor, selectedDate) ? (
+                      getVacationReason(doctor, selectedDate, i18n.language) ? (
+                        <>
+                          <p>🚫 {t("doctor_on_vacation")}</p>
+                          <p className="mt-2 text-sm">
+                            {t('reason_label')} 
+                            {getVacationReason(doctor, selectedDate, i18n.language)}
+                          </p>
+                        </>
+                      ) : (
+                        <p>{t("doctor_on_vacation")}</p>
+                      )
+                    ) : (
+                      <p>{t("no_appointments_available")}</p>
+                    )}
+                    </div>
                   </div>
                 )}
               </div>

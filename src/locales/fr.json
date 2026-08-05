@@ -313,5 +313,17 @@
   "share_feature_p5": "Accéder facilement aux informations du médecin.",
   "share_call_to_action": "Contribuez à faire connaître la plateforme au plus grand nombre de médecins et de patients.",
   "copy_link": "Copier le lien",
-  "link_copied_success": "✅ Merci de partager la plateforme Sehatak Online. Le lien a été copié avec succès."
+  "link_copied_success": "✅ Merci de partager la plateforme Sehatak Online. Le lien a été copié avec succès.",
+  "first_name": "Prénom",
+  "last_name": "Nom",
+  "slugs_updated_success": "{{count}} liens de médecins mis à jour",
+  "updating": "Mise à jour en cours...",
+  "fix_slugs": "Réparer les liens (Slugs)",
+  "reason_label": "Motif : ",
+  "everyday": "Tous les jours",
+  "comma_separator": ", ",
+  "confirm_delete_receptionist_title": "Supprimer le compte du réceptionniste",
+  "confirm_delete_receptionist_desc": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette action est irréversible.",
+  "success": "Succès",
+  "error": "Erreur"
 }

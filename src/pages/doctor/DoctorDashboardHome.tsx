@@ -17,6 +17,7 @@ export default function DoctorDashboardHome() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [doctorSlug, setDoctorSlug] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
@@ -31,6 +32,14 @@ const [messageModal, setMessageModal] = useState({
     if (!user) return;
     setLoading(true);
     const targetDoctorId = user.role === 'receptionist' ? user.doctorId : user.id;
+    try {
+      const dRef = await import('firebase/firestore').then(m => m.getDoc(m.doc(db, COLLECTIONS.DOCTORS, targetDoctorId as string)));
+      if (dRef.exists() && dRef.data().slug) {
+        setDoctorSlug(dRef.data().slug);
+      }
+    } catch (e) {
+      console.error(e);
+    }
     try {
       const q = query(
         collection(db, COLLECTIONS.APPOINTMENTS),
@@ -125,7 +134,7 @@ const batch = writeBatch(db);
           <p className="text-slate-500 text-sm">{t('manage_appointments_desc')}</p>
         </div>
         <div className="flex items-center gap-2">
-          <Link to={`/p/${user?.role === 'receptionist' ? user.doctorId : user?.id}`} target="_blank" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-bold transition-colors text-sm shadow-sm">
+          <Link to={`/doctors/${doctorSlug || (user?.role === 'receptionist' ? user.doctorId : user?.id)}`} target="_blank" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-bold transition-colors text-sm shadow-sm">
             {t('create_new_appointment')}
           </Link>
         </div>

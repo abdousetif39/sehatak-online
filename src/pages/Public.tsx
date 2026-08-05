@@ -26,15 +26,15 @@ export default function PublicLayout() {
             <img src="/logo.png" alt="Sehatak Online Logo" className="h-18 w-56 object-contain" onError={(e) => { e.currentTarget.style.display = 'none' }} />
             
           </Link>
-          <div className="flex items-center gap-4">
-            <Link to="/pricing" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+          <div className="flex items-center gap-2 md:gap-4">
+            <Link to="/pricing" className="text-sm font-bold text-blue-600 bg-white border border-blue-200 hover:bg-blue-50 hover:border-blue-300 hover:shadow-md px-3 md:px-4 py-1.5 md:py-2 rounded-xl shadow-sm transition-all duration-300 whitespace-nowrap">
               {t('subscription_plans')}
             </Link>
-            <button onClick={toggleLanguage} className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full">
+            <button onClick={toggleLanguage} className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-xl">
               <Globe className="w-4 h-4" />
               {i18n.language === 'ar' ? t('language_fr') : t('language_ar')}
             </button>
-            <Link to="/login" className="text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl transition-colors">
+            <Link to="/login" className="text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 md:px-4 py-1.5 md:py-2 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 whitespace-nowrap">
               {t('doctor_login')}
             </Link>
           </div>
@@ -44,6 +44,7 @@ export default function PublicLayout() {
       <main className="flex-1 flex flex-col">
         <Routes>
           <Route index element={<Home />} />
+          <Route path="doctors/:id" element={<DoctorProfile />} />
           <Route path="p/:id" element={<DoctorProfile />} />
           <Route path="pricing" element={<Pricing />} />
         </Routes>

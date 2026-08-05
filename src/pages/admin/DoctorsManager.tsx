@@ -7,7 +7,7 @@ import { Plus, Edit2, Trash2, X, User as UserIcon, Building2 } from 'lucide-reac
 import { WILAYAS } from '../../data/algeria-data';
 import { getStateName, getCities, getCityName, getStateByName, getCityArabicName } from '../../utils/locationUtils';
 import { useTranslation } from 'react-i18next';
-import { getDoctorFullName, getDoctorSpecialty } from '../../utils/doctorUtils';
+import { getDoctorFullName, getDoctorSpecialty, generateDoctorSlug } from '../../utils/doctorUtils';
 import { COLLECTIONS, ROLES } from '../../lib/constants';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
 import MessageModal from '../../components/MessageModal';
@@ -275,8 +275,10 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
         await secondaryAuth.signOut();
         
         await setDoc(doc(db, COLLECTIONS.USERS, uid), { id: uid, email, role: ROLES.DOCTOR });
+        const slug = generateDoctorSlug(firstNameFr, lastNameFr, specialtyFr, city, uid);
         const newDoctor: Doctor = {
           id: uid,
+          slug,
           firstNameAr, lastNameAr, firstNameFr, lastNameFr,
           specialtyAr, specialtyFr,
           clinicNameAr, clinicNameFr,
@@ -294,14 +296,18 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
         newDoctor.state = getStateByName(String(stateName))?.id || stateName;
         await setDoc(doc(db, COLLECTIONS.DOCTORS, uid), newDoctor);
       } else {
-        await updateDoc(doc(db, COLLECTIONS.DOCTORS, user.id), {
+        const updates: any = {
           firstNameAr, lastNameAr, firstNameFr, lastNameFr,
           specialtyAr, specialtyFr,
           clinicNameAr, clinicNameFr,
           state: getStateByName(String(stateName))?.id || stateName,
           city,
           phone
-        });
+        };
+        if (!user.slug) {
+          updates.slug = generateDoctorSlug(firstNameFr, lastNameFr, specialtyFr, city, user.id);
+        }
+        await updateDoc(doc(db, COLLECTIONS.DOCTORS, user.id), updates);
       }
       onSuccess();
     } catch (err: any) {

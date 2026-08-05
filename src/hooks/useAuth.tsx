@@ -27,7 +27,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             id: firebaseUser.uid,
             email: firebaseUser.email || "",
             role: data.role,
-            doctorId: data.doctorId
+            doctorId: data.doctorId,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            receptionistName: data.receptionistName,
+            phone: data.phone
             });
           } else {
             setUser(null);

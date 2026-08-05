@@ -313,5 +313,17 @@
   "share_feature_p5": "الاطلاع على معلومات الطبيب بسهولة.",
   "share_call_to_action": "ساهم في وصول المنصة إلى أكبر عدد من الأطباء والمرضى.",
   "copy_link": "نسخ الرابط",
-  "link_copied_success": "✅ شكرًا لمشاركتك منصة صحتك أونلاين. تم نسخ الرابط بنجاح"
+  "link_copied_success": "✅ شكرًا لمشاركتك منصة صحتك أونلاين. تم نسخ الرابط بنجاح",
+  "first_name": "الاسم",
+  "last_name": "اللقب",
+  "slugs_updated_success": "تم تحديث {{count}} رابط طبيب",
+  "updating": "جاري التحديث...",
+  "fix_slugs": "إصلاح الروابط (Slugs)",
+  "reason_label": "السبب: ",
+  "everyday": "كل الأيام",
+  "comma_separator": "، ",
+  "confirm_delete_receptionist_title": "حذف حساب موظف الاستقبال",
+  "confirm_delete_receptionist_desc": "هل أنت متأكد أنك تريد حذف هذا الحساب؟ لا يمكن التراجع عن هذا الإجراء.",
+  "success": "نجاح",
+  "error": "خطأ"
 }

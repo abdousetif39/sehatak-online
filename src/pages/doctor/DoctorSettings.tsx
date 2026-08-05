@@ -17,6 +17,7 @@ import {
 import LocationPicker from '../../components/LocationPicker';
 import BreakSettings from "../../components/doctor/BreakSettings";
 import { WILAYAS, COMMUNES } from '../../data/algeria-data';
+import { generateDoctorSlug } from '../../utils/doctorUtils';
 import SuccessModal from "../../components/SuccessModal";
 import MessageModal from "../../components/MessageModal";
 import VacationSettings from "../../components/doctor/VacationSettings";
@@ -192,6 +193,10 @@ export default function DoctorSettings() {
       setError(t('latin_only_last_name'));
       setSaving(false);
       return;
+    }
+
+    if (!formData.slug) {
+      formData.slug = generateDoctorSlug(formData.firstNameFr, formData.lastNameFr, formData.specialtyFr, formData.city, user.id);
     }
 
     try {
@@ -403,14 +408,14 @@ title={t("latin_letters_only")}
                     setFormData(prev => ({ 
                       ...prev, 
                       receptionistId: recId, 
-                      receptionistName: rec?.name || '' 
+                      receptionistName: rec ? (rec.firstName && rec.lastName ? `${rec.firstName} ${rec.lastName}` : rec.receptionistName || '') : '' 
                     }));
                   }} 
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"
                 >
                   <option value="">{t('none')}</option>
                   {receptionists.map(r => (
-                    <option key={r.id} value={r.id}>{r.name || r.email}</option>
+                    <option key={r.id} value={r.id}>{r.firstName && r.lastName ? `${r.firstName} ${r.lastName}` : r.receptionistName || r.email}</option>
                   ))}
                 </select>
               </div>

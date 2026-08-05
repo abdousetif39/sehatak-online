@@ -99,6 +99,7 @@ export default function StaffManager() {
       ) : (
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
           <div className="flex bg-slate-50 border-b border-slate-200 p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <div className="flex-1">{t('name')}</div>
             <div className="flex-1">{t('email')}</div>
             <div className="w-24 text-center">{t('actions')}</div>
           </div>
@@ -106,7 +107,10 @@ export default function StaffManager() {
           <div className="flex-col divide-y divide-slate-100">
             {staff.map(member => (
               <div key={member.id} className="px-6 py-4 flex items-center gap-4 hover:bg-slate-50/50 transition-colors">
-                <div className="flex-1 font-medium text-slate-700">{member.email}</div>
+                <div className="flex-1 font-bold text-slate-900">
+                  {member.firstName && member.lastName ? `${member.firstName} ${member.lastName}` : member.receptionistName || member.email}
+                </div>
+                <div className="flex-1 text-sm text-slate-500" dir="ltr">{member.email}</div>
                 <div className="w-24 flex justify-center">
                   <button 
                     onClick={() => confirmDelete(member.id)}
@@ -158,6 +162,8 @@ export default function StaffManager() {
 
 function StaffModal({ onClose, onSuccess, doctorId }: { onClose: () => void, onSuccess: () => void, doctorId: string }) {
   const { t } = useTranslation();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [saving, setSaving] = useState(false);
@@ -176,7 +182,10 @@ function StaffModal({ onClose, onSuccess, doctorId }: { onClose: () => void, onS
         id: uid,
         email,
         role: 'receptionist',
-        doctorId
+        doctorId,
+        firstName,
+        lastName,
+        receptionistName: `${firstName} ${lastName}`.trim()
       };
       
       await setDoc(doc(db, COLLECTIONS.USERS, uid), newUser);
@@ -215,6 +224,17 @@ function StaffModal({ onClose, onSuccess, doctorId }: { onClose: () => void, onS
           )}
           
           <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name')}</label>
+                <input required type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name')}</label>
+                <input required type="text" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('email')}</label>
               <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />

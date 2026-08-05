@@ -108,10 +108,10 @@ export default function ReceptionistsManager() {
               <div key={u.id} className="flex flex-col md:flex-row items-start md:items-center p-4 border-b border-slate-100 last:border-0 hover:bg-slate-50/50 transition-colors gap-4">
                 <div className="flex-1 flex items-center gap-3 w-full">
                   <div className="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
-                    {u.receptionistName?.charAt(0) || u.email?.charAt(0) || 'R'}
+                    {u.firstName?.charAt(0) || u.receptionistName?.charAt(0) || u.email?.charAt(0) || 'R'}
                   </div>
                   <div>
-                    <div className="font-bold text-slate-900">{u.receptionistName || 'N/A'}</div>
+                    <div className="font-bold text-slate-900">{u.firstName && u.lastName ? `${u.firstName} ${u.lastName}` : u.receptionistName || u.email}</div>
                     <div className="text-[11px] text-slate-500">{t('receptionist_for')} {doctorsList.find(d => d.id === u.doctorId) ? getDoctorFullName(doctorsList.find(d => d.id === u.doctorId) as any, i18n.language) : 'N/A'}</div>
                   </div>
                 </div>

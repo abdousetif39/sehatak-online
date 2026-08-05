@@ -206,7 +206,7 @@ ${shareUrl}`;
               </div>
               
               <Link 
-                to={`/p/${doctor.id}`}
+                to={`/doctors/${doctor.slug || doctor.id}`}
                 className="mt-auto w-full py-2.5 px-4 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
               >
                 {t('book_appointment')}
