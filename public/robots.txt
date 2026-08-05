@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /doctor/
+Disallow: /login
+
+Sitemap: https://www.sehatek.online/sitemap.xml
