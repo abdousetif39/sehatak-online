@@ -238,7 +238,7 @@ ${shareUrl}`;
 
       <div className="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200 flex flex-col items-center">
         <Link to="/" className="mb-6" aria-label={t('app_title')}>
-          <img src="/logo.webp" alt="Sehatak Online Logo" width="224" height="64" className="h-16 object-contain hover:opacity-90 transition-opacity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+          <img src="/logo.webp" alt="Sehatek Online Logo" width="224" height="64" className="h-16 object-contain hover:opacity-90 transition-opacity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
         </Link>
         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 text-center">{t('share_title')}</h2>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10 text-center">{t('share_desc')}</p>

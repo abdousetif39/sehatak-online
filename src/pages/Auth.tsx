@@ -72,7 +72,7 @@ export default function AuthLayout() {
           src="/logo.webp"
             width="224"
             height="72"
-          alt="Sehatak Online Logo"
+          alt="Sehatek Online Logo"
           className="h-18 w-auto object-contain cursor-pointer"
           onError={(e) => { e.currentTarget.style.display = 'none' }}
           />
