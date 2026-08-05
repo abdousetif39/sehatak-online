@@ -20,48 +20,50 @@ export default function AdminDashboardHome() {
   });
 
   const handleFixSlugs = async () => {
-    setFixingSlugs(true);
-    try {
-      const doctorsSnap = await getDocs(collection(db, COLLECTIONS.DOCTORS));
-      const doctors = doctorsSnap.docs.map(doc => doc.data() as Doctor);
-      
-      const slugCounts = new Map<string, number>();
-      doctors.forEach(doc => {
-        if (doc.slug) {
-          slugCounts.set(doc.slug, (slugCounts.get(doc.slug) || 0) + 1);
-        }
-      });
+  setFixingSlugs(true);
 
-      let updatedCount = 0;
-      for (const docData of doctors) {
-        let needsUpdate = false;
-        let newSlug = docData.slug;
-        
-        if (!docData.slug || (slugCounts.get(docData.slug) || 0) > 1 || !docData.slug.includes(docData.id.slice(-6).toLowerCase())) {
-          newSlug = generateDoctorSlug(
-            docData.firstNameFr || '', 
-            docData.lastNameFr || '', 
-            docData.specialtyFr || '', 
-            docData.city || '', 
-            docData.id
-          );
-          if (docData.slug !== newSlug) {
-            needsUpdate = true;
-          }
-        }
-        
-        if (needsUpdate && newSlug) {
-          await updateDoc(doc(db, "doctors", docData.id), { slug: newSlug });
-          updatedCount++;
-        }
+  try {
+    const doctorsSnap = await getDocs(collection(db, COLLECTIONS.DOCTORS));
+    const doctors = doctorsSnap.docs.map(doc => doc.data() as Doctor);
+
+    let updatedCount = 0;
+
+    for (const doctor of doctors) {
+      const newSlug = generateDoctorSlug(
+        doctor.firstNameFr || "",
+        doctor.lastNameFr || "",
+        doctor.specialtyFr || "",
+        doctor.city || "",
+        doctor.id
+      );
+
+      if (doctor.slug !== newSlug) {
+        await updateDoc(doc(db, COLLECTIONS.DOCTORS, doctor.id), {
+          slug: newSlug,
+        });
+
+        updatedCount++;
       }
-      setMessageModal({ isOpen: true, type: "success", title: t("success"), message: t("slugs_updated_success", { count: updatedCount }) });
-    } catch (e: any) {
-      setMessageModal({ isOpen: true, type: "error", title: t("error"), message: e.message });
-    } finally {
-      setFixingSlugs(false);
     }
-  };
+
+    setMessageModal({
+      isOpen: true,
+      type: "success",
+      title: t("success"),
+      message: `${updatedCount} slugs updated`,
+    });
+
+  } catch (e: any) {
+    setMessageModal({
+      isOpen: true,
+      type: "error",
+      title: t("error"),
+      message: e.message,
+    });
+  } finally {
+    setFixingSlugs(false);
+  }
+};
 
   const { t } = useTranslation();
   const [stats, setStats] = useState({
