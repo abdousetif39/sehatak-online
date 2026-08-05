@@ -216,7 +216,12 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+  const [messageModal, setMessageModal] = useState({
+  open: false,
+  type: "success" as "success" | "error" | "warning" | "info",
+  title: "",
+  message: "",
+});
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
   const [firstNameAr, setFirstNameAr] = useState(user?.firstNameAr || user?.name?.split(' ')[0] || '');
@@ -316,10 +321,13 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
 
 await updateDoc(doc(db, COLLECTIONS.DOCTORS, user.id), updates);
 
-
-        
-      }
-      onSuccess();
+setMessageModal({
+  open: true,
+  type: "success",
+  title: t("success"),
+  message: t("doctor_updated_success"),
+});
+}
     } catch (err: any) {
       if (err.code !== 'auth/email-already-in-use') {
         console.error(err);
@@ -442,6 +450,22 @@ await updateDoc(doc(db, COLLECTIONS.DOCTORS, user.id), updates);
           </div>
         </form>
       </div>
+      <MessageModal
+  isOpen={messageModal.open}
+  type={messageModal.type}
+  title={messageModal.title}
+  message={messageModal.message}
+  onClose={() => {
+    setMessageModal({
+      open: false,
+      type: "success",
+      title: "",
+      message: "",
+    });
+
+    onSuccess();
+  }}
+/>
     </div>
   );
 

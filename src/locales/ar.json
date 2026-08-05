@@ -221,6 +221,7 @@
   "cancel_appointment": "إلغاء الموعد",
   "vacation_name_ar": "اسم الإجازة بالعربية",
   "vacation_name_fr": "اسم الإجازة بالفرنسية",
+  "doctor_updated_success": "تم تحديث بيانات الطبيب بنجاح",
   "description_ar": "الوصف بالعربية",
   "description_fr": "الوصف بالفرنسية",
   "doctor_on_vacation": "الطبيب في إجازة خلال هذا اليوم",
