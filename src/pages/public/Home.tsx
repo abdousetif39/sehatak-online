@@ -14,7 +14,15 @@ import { WILAYAS, COMMUNES } from '../../data/algeria-data';
 
 export default function Home() {
   const { t, i18n } = useTranslation();
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  
+  useEffect(() => {
+    document.title = t('app_title') || 'صحتك أونلاين';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', t('meta_home_desc'));
+    }
+  }, [t, i18n.language]);
+const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -154,13 +162,13 @@ ${shareUrl}`;
           />
         </div>
         <div className="flex-1">
-          <select value={selectedState} onChange={handleStateChange} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50">
+          <select aria-label={t('wilaya')} value={selectedState} onChange={handleStateChange} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50">
             <option value="">{t('all_states')}</option>
             {ALGERIA_STATES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
         <div className="flex-1">
-          <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50 disabled:opacity-50">
+          <select aria-label={t('commune')} value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50 disabled:opacity-50">
             <option value="">{t('all_cities')}</option>
             {selectedState && getCitiesForState(selectedState, i18n.language).map(c => <option key={c} value={c}>{c}</option>)}
           </select>
@@ -172,7 +180,9 @@ ${shareUrl}`;
           <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <>
+          <h2 className="sr-only">{t("menu_doctors")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredDoctors.map(doctor => (
             <div key={doctor.id} className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-slate-200 p-6 flex flex-col group">
               <div className="flex items-start gap-4 mb-4">
@@ -193,12 +203,12 @@ ${shareUrl}`;
               </div>
               
               <div className="flex flex-col gap-2 mb-6 bg-slate-50 p-3 rounded-xl">
-                <div className="flex items-center gap-1.5 text-sm text-slate-500">
+                <div className="flex items-center gap-1.5 text-sm text-slate-600">
                   <MapPin className="w-4 h-4 shrink-0 text-slate-400" />
                   <span className="truncate">{getStateName(doctor.state, i18n.language)} - {getCityName(doctor.state, doctor.city, i18n.language)} - {doctor.address}</span>
                 </div>
                 {doctor.showPhoneInCard && doctor.phone && (
-                  <div className="flex items-center gap-1.5 text-sm text-slate-500 font-medium" dir="ltr">
+                  <div className="flex items-center gap-1.5 text-sm text-slate-600 font-medium" dir="ltr">
                     <Phone className="w-4 h-4 shrink-0 text-blue-500" />
                     <span>{doctor.phone}</span>
                   </div>
@@ -207,6 +217,7 @@ ${shareUrl}`;
               
               <Link 
                 to={`/doctors/${doctor.slug || doctor.id}`}
+                aria-label={`${t('book_appointment')} - ${getDoctorFullName(doctor, i18n.language)}`}
                 className="mt-auto w-full py-2.5 px-4 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all"
               >
                 {t('book_appointment')}
@@ -217,16 +228,17 @@ ${shareUrl}`;
 
           {filteredDoctors.length === 0 && (
             <div className="col-span-full text-center p-12 bg-white rounded-2xl border border-slate-200">
-              <p className="text-slate-500 text-lg">{t('no_doctors_found')}</p>
+              <p className="text-slate-600 text-lg">{t('no_doctors_found')}</p>
             </div>
           )}
         </div>
+        </>
       )}
 
 
       <div className="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200 flex flex-col items-center">
         <Link to="/" className="mb-6">
-          <img src="/logo.png" alt="Sehatak Online Logo" className="h-16 object-contain hover:opacity-90 transition-opacity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+          <img src="/logo.webp" alt="Sehatak Online Logo" width="224" height="64" className="h-16 object-contain hover:opacity-90 transition-opacity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
         </Link>
         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 text-center">{t('share_title')}</h2>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10 text-center">{t('share_desc')}</p>

@@ -325,5 +325,7 @@
   "confirm_delete_receptionist_title": "Supprimer le compte du réceptionniste",
   "confirm_delete_receptionist_desc": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette action est irréversible.",
   "success": "Succès",
-  "error": "Erreur"
+  "error": "Erreur",
+  "meta_home_desc": "Plateforme complète pour la gestion des cliniques médicales et la prise de rendez-vous en ligne. Prenez rendez-vous avec votre médecin préféré en toute simplicité.",
+  "meta_doctor_desc": "Prenez rendez-vous avec le Dr {{name}}, spécialiste en {{specialty}} à {{city}}. Consultez les horaires, l'emplacement et réservez facilement via Sehatak Online."
 }

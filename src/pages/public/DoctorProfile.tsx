@@ -89,9 +89,24 @@ import MessageModal from '../../components/MessageModal';
 
 export default function DoctorProfile() {
   const { t, i18n } = useTranslation();
-  const { id } = useParams();
+  
+
+const { id } = useParams();
   const navigate = useNavigate();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
+  useEffect(() => {
+    if (doctor) {
+      document.title = `${getDoctorFullName(doctor, i18n.language)} | ${t('app_title')}`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', t('meta_doctor_desc', {
+          name: getDoctorFullName(doctor, i18n.language),
+          specialty: getDoctorSpecialty(doctor, i18n.language),
+          city: doctor.city || ''
+        }));
+      }
+    }
+  }, [doctor, t, i18n.language]);
   const [loading, setLoading] = useState(true);
   
   // Booking state
@@ -361,8 +376,8 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
     }
   };
 
-  if (loading) return <div className="text-center p-12 text-slate-500">{t('loading')}</div>;
-  if (!doctor) return <div className="text-center p-12 text-slate-500">{t('doctor_not_found')}</div>;
+  if (loading) return <div className="text-center p-12 text-slate-600">{t('loading')}</div>;
+  if (!doctor) return <div className="text-center p-12 text-slate-600">{t('doctor_not_found')}</div>;
 
   if (success) {
     return (
@@ -443,7 +458,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-8 font-medium transition-colors">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 font-medium transition-colors">
         
         {t('go_back')}
       </button>
@@ -692,7 +707,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
               <div className="mb-8">
                 <h3 className="text-sm font-medium text-slate-700 mb-3 flex justify-between items-center">
                   <span>{t('step_2_time')}</span>
-                  {selectedDate && <span className="text-slate-500 font-normal" dir="ltr">{format(selectedDate, 'yyyy/MM/dd')}</span>}
+                  {selectedDate && <span className="text-slate-600 font-normal" dir="ltr">{format(selectedDate, 'yyyy/MM/dd')}</span>}
                 </h3>
                 
                 {daySlots.length > 0 ? (
@@ -725,7 +740,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                 ) : (
                   <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-100">
                     <Clock className="w-8 h-8 text-slate-300 mx-auto mb-3" />
-                    <div className="text-slate-500 font-medium">
+                    <div className="text-slate-600 font-medium">
                     {isVacationDay(doctor, selectedDate) ? (
                       getVacationReason(doctor, selectedDate, i18n.language) ? (
                         <>
@@ -754,19 +769,19 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                     <form onSubmit={handleBooking} className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">{t('patient_name')} *</label>
+                          <label className="block text-xs text-slate-600 mb-1">{t('patient_name')} *</label>
                           <input required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">{t('patient_last_name')} *</label>
+                          <label className="block text-xs text-slate-600 mb-1">{t('patient_last_name')} *</label>
                           <input required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">{t('phone')} *</label>
+                          <label className="block text-xs text-slate-600 mb-1">{t('phone')} *</label>
                           <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">{t('file_number')}</label>
+                          <label className="block text-xs text-slate-600 mb-1">{t('file_number')}</label>
                           <input type="text" value={formData.fileNumber} onChange={e => setFormData({...formData, fileNumber: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr" />
                         </div>
                       </div>

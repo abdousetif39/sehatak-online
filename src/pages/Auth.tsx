@@ -69,7 +69,9 @@ export default function AuthLayout() {
           <div className="flex justify-center mb-4">
           <Link to="/">
           <img
-          src="/logo.png"
+          src="/logo.webp"
+            width="224"
+            height="72"
           alt="Sehatak Online Logo"
           className="h-18 w-auto object-contain cursor-pointer"
           onError={(e) => { e.currentTarget.style.display = 'none' }}

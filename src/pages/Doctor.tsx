@@ -54,7 +54,9 @@ export default function DoctorLayout() {
             </button>
             <Link to="/" className="flex items-center">
             <img
-            src="/logo.png"
+            src="/logo.webp"
+            width="224"
+            height="72"
             alt="Sehatak Online Logo"
             className="h-18 w-56 object-contain cursor-pointer"
             onError={(e) => { e.currentTarget.style.display = 'none' }}
