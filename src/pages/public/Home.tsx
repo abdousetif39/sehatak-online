@@ -120,7 +120,7 @@ ${shareUrl}`;
   const encodedTitle = encodeURIComponent(shareTitleText);
 
   const shareLinks = [
-    { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://api.whatsapp.com/send?text=${encodedText}`, color: 'bg-[#128c3e] hover:bg-[#0d6e30] text-white' },
+    { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://api.whatsapp.com/send?text=${encodedText}`, color: 'bg-green-800 hover:bg-green-900 text-white' },
     { name: 'Facebook', icon: <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, color: 'bg-[#0b5cba] hover:bg-[#08468f] text-white' },
     { name: 'Telegram', icon: <Send className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`, color: 'bg-[#006090] hover:bg-[#00476b] text-white' },
     { name: 'X', icon: <Twitter className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`, color: 'bg-black hover:bg-gray-800 text-white' },
@@ -237,7 +237,7 @@ ${shareUrl}`;
 
 
       <div className="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200 flex flex-col items-center">
-        <Link to="/" className="mb-6">
+        <Link to="/" className="mb-6" aria-label={t('app_title')}>
           <img src="/logo.webp" alt="Sehatak Online Logo" width="224" height="64" className="h-16 object-contain hover:opacity-90 transition-opacity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
         </Link>
         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 text-center">{t('share_title')}</h2>
@@ -282,6 +282,7 @@ ${shareUrl}`;
               href={link.url} 
               target="_blank" 
               rel="noopener noreferrer"
+              aria-label={link.name}
               className={`group flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${link.color}`}
             >
               {link.icon}
