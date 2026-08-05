@@ -312,15 +312,7 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
 		user.id
 		);
 
-      alert(
-  generateDoctorSlug(
-    firstNameFr,
-    lastNameFr,
-    specialtyFr,
-    city,
-    user.id
-  )
-);
+    
 
 await updateDoc(doc(db, COLLECTIONS.DOCTORS, user.id), updates);
 
