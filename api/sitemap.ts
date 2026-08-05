@@ -21,7 +21,7 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  const db = getFirestore();
+ const db = getFirestore("ai-studio-632711db-3d1d-41f4-bd2c-ab02bf4cc3f6");
 
   const snapshot = await db.collection("doctors").get();
 
