@@ -1,7 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './public/Home';
-import DoctorProfile from './public/DoctorProfile';
-import Pricing from './public/Pricing';
+import React, { Suspense } from 'react';
+const DoctorProfile = React.lazy(() => import('./public/DoctorProfile'));
+const Pricing = React.lazy(() => import('./public/Pricing'));
 import { Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
@@ -42,15 +43,17 @@ export default function PublicLayout() {
       </header>
 
       <main className="flex-1 flex flex-col">
+        <Suspense fallback={<div className="flex justify-center p-12"><div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div></div>}>
         <Routes>
           <Route index element={<Home />} />
           <Route path="doctors/:id" element={<DoctorProfile />} />
           <Route path="p/:id" element={<DoctorProfile />} />
           <Route path="pricing" element={<Pricing />} />
         </Routes>
+        </Suspense>
       </main>
       
-      <footer className="h-10 bg-slate-100 border-t border-slate-200 px-4 md:px-8 flex items-center justify-center text-[11px] text-slate-500 shrink-0">
+      <footer className="h-10 bg-slate-100 border-t border-slate-200 px-4 md:px-8 flex items-center justify-center text-[11px] text-slate-700 shrink-0">
         <p>© {new Date().getFullYear()} {t('footer_rights')}</p>
       </footer>
     </div>

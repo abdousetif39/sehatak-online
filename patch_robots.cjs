@@ -1,22 +1,10 @@
 const fs = require('fs');
-let content = fs.readFileSync('server.ts', 'utf8');
 
-const robotsRoute = `// robots.txt endpoint
-app.get('/robots.txt', (req, res) => {
-  res.type('text/plain');
-  res.send(\`User-agent: *
-Allow: /
+let serverCode = fs.readFileSync('server.ts', 'utf8');
+serverCode = serverCode.replace(
+  "app.get('/robots.txt', (req, res) => {\n  res.type('text/plain');\n  res.send(`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /doctor/\nDisallow: /login\nSitemap: https://www.sehatek.online/sitemap.xml`);\n});",
+  "app.get('/robots.txt', (req, res) => {\n  res.type('text/plain');\n  res.send(`User-agent: *\\nAllow: /\\nDisallow: /admin/\\nDisallow: /doctor/\\nDisallow: /login\\nSitemap: https://www.sehatek.online/sitemap.xml\\n`);\n});"
+);
 
-Disallow: /admin/
-Disallow: /doctor/
-Disallow: /login
-
-Sitemap: https://www.sehatek.online/sitemap.xml\`);
-});
-
-`;
-
-content = content.replace("// Sitemap endpoint", robotsRoute + "// Sitemap endpoint");
-
-fs.writeFileSync('server.ts', content);
-console.log("Added robots.txt endpoint");
+fs.writeFileSync('server.ts', serverCode);
+console.log("Patched server.ts robots.txt");

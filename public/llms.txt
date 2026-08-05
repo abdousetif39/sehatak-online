@@ -1,0 +1,9 @@
+# Sehatek Online
+Official website for managing clinics and booking medical appointments in Algeria.
+## Pages
+- https://www.sehatek.online/
+- https://www.sehatek.online/pricing
+## Sitemap
+https://www.sehatek.online/sitemap.xml
+## Robots
+https://www.sehatek.online/robots.txt

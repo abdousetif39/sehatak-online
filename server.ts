@@ -132,16 +132,10 @@ app.post('/api/delete-doctor', async (req, res) => {
 
 
 // robots.txt endpoint
+// robots.txt endpoint
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain');
-  res.send(`User-agent: *
-Allow: /
-
-Disallow: /admin/
-Disallow: /doctor/
-Disallow: /login
-
-Sitemap: https://www.sehatek.online/sitemap.xml`);
+  res.send(`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /doctor/\nDisallow: /login\nSitemap: https://www.sehatek.online/sitemap.xml\n`);
 });
 
 // Sitemap endpoint

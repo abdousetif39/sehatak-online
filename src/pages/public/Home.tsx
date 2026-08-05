@@ -120,9 +120,9 @@ ${shareUrl}`;
   const encodedTitle = encodeURIComponent(shareTitleText);
 
   const shareLinks = [
-    { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://api.whatsapp.com/send?text=${encodedText}`, color: 'bg-[#25D366] hover:bg-[#1da851] text-white' },
-    { name: 'Facebook', icon: <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, color: 'bg-[#1877F2] hover:bg-[#145dbf] text-white' },
-    { name: 'Telegram', icon: <Send className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`, color: 'bg-[#0088cc] hover:bg-[#006699] text-white' },
+    { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://api.whatsapp.com/send?text=${encodedText}`, color: 'bg-[#128c3e] hover:bg-[#0d6e30] text-white' },
+    { name: 'Facebook', icon: <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, color: 'bg-[#0b5cba] hover:bg-[#08468f] text-white' },
+    { name: 'Telegram', icon: <Send className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`, color: 'bg-[#006090] hover:bg-[#00476b] text-white' },
     { name: 'X', icon: <Twitter className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`, color: 'bg-black hover:bg-gray-800 text-white' },
     { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, color: 'bg-[#0A66C2] hover:bg-[#074c92] text-white' },
     { name: 'Email', icon: <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />, url: `mailto:?subject=${encodedTitle}&body=${encodedText}`, color: 'bg-slate-600 hover:bg-slate-700 text-white' }

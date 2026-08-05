@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import PublicLayout from './pages/Public';
-import AuthLayout from './pages/Auth';
-import AdminLayout from './pages/Admin';
-import DoctorLayout from './pages/Doctor';
+const AuthLayout = React.lazy(() => import('./pages/Auth'));
+const AdminLayout = React.lazy(() => import('./pages/Admin'));
+const DoctorLayout = React.lazy(() => import('./pages/Doctor'));
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
@@ -34,6 +34,7 @@ export default function App() {
     <div dir={(i18n.language || '').startsWith('ar') ? 'rtl' : 'ltr'} className="font-sans min-h-screen">
       <AuthProvider>
         <Router>
+          <React.Suspense fallback={<div className="p-8 text-center">{t('loading')}</div>}>
           <Routes>
             <Route path="/*" element={<PublicLayout />} />
             <Route path="/login" element={<AuthLayout />} />
@@ -50,6 +51,7 @@ export default function App() {
               </ProtectedRoute>
             } />
           </Routes>
+          </React.Suspense>
         </Router>
       </AuthProvider>
     </div>
