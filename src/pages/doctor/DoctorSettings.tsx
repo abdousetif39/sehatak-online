@@ -195,9 +195,13 @@ export default function DoctorSettings() {
       return;
     }
 
-    if (!formData.slug) {
-      formData.slug = generateDoctorSlug(formData.firstNameFr, formData.lastNameFr, formData.specialtyFr, formData.city, user.id);
-    }
+    formData.slug = generateDoctorSlug(
+  formData.firstNameFr || "",
+  formData.lastNameFr || "",
+  formData.specialtyFr || "",
+  formData.city || "",
+  user.id
+);
 
     try {
       await setDoc(doc(db, COLLECTIONS.DOCTORS, user.id), formData, { merge: true });
