@@ -1,15 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/robots.txt",
-      "destination": "/api/robots"
-    },
-    {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
     },
     {
-      "source": "/:path((?!api|robots\\.txt|sitemap\\.xml).*)",
+      "source": "/((?!api).*)",
       "destination": "/index.html"
     }
   ]
