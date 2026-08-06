@@ -6,7 +6,7 @@ const AdminLayout = React.lazy(() => import('./pages/Admin'));
 const DoctorLayout = React.lazy(() => import('./pages/Doctor'));
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { useTranslation } from 'react-i18next';
-
+import FloatingBackButton from "./components/FloatingBackButton";
 const ProtectedRoute = ({ children, allowedRoles }: { children: React.ReactNode, allowedRoles: ('admin' | 'doctor' | 'receptionist')[] }) => {
   const { user, loading } = useAuth();
   const { t } = useTranslation();
@@ -34,6 +34,7 @@ export default function App() {
     <div dir={(i18n.language || '').startsWith('ar') ? 'rtl' : 'ltr'} className="font-sans min-h-screen">
       <AuthProvider>
         <Router>
+			<FloatingBackButton />
           <React.Suspense fallback={<div className="p-8 text-center">{t('loading')}</div>}>
           <Routes>
             <Route path="/*" element={<PublicLayout />} />
