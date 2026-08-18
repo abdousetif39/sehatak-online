@@ -1,0 +1,10 @@
+{
+  "name": "طبيبي - نظام حجز المواعيد",
+  "description": "منصة احترافية متكاملة لحجز وإدارة مواعيد الأطباء، مع لوحات تحكم للإدارة والأطباء.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

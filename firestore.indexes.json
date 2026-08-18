@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "doctors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "wilaya", "order": "ASCENDING" },
+        { "fieldPath": "commune", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "doctors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "specialty", "order": "ASCENDING" },
+        { "fieldPath": "wilaya", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
