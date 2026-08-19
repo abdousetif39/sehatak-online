@@ -269,7 +269,7 @@ export default function VacationSettings({
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <input
+              <input name="vacationtitlear" id="vacationtitlear"
                 className="border rounded-xl p-3"
                 placeholder={t("vacation_name_ar")}
                 value={vacation.titleAr}
@@ -280,7 +280,7 @@ export default function VacationSettings({
                   })
                 }
               />
-              <input
+              <input name="vacationtitlefr" id="vacationtitlefr"
                 className="border rounded-xl p-3"
                 placeholder={t("vacation_name_fr")}
                 value={vacation.titleFr}
@@ -291,7 +291,7 @@ export default function VacationSettings({
                   })
                 }
               />
-              <input
+              <input name="vacationstartda" id="vacationstartda"
                 type="date"
                 className="border rounded-xl p-3"
                 value={vacation.startDate}
@@ -302,7 +302,7 @@ export default function VacationSettings({
                   })
                 }
               />
-              <input
+              <input name="vacationenddate" id="vacationenddate"
                 type="date"
                 className="border rounded-xl p-3"
                 value={vacation.endDate}
@@ -313,7 +313,7 @@ export default function VacationSettings({
                   })
                 }
               />
-              <textarea
+              <textarea name="vacationdescrip" id="vacationdescrip"
                 className="border rounded-xl p-3 col-span-2"
                 rows={3}
                 placeholder={t("description_ar")}
@@ -325,7 +325,7 @@ export default function VacationSettings({
                   })
                 }
               />
-              <textarea
+              <textarea name="vacationdescrip" id="vacationdescrip"
                 className="border rounded-xl p-3 col-span-2"
                 rows={3}
                 placeholder={t("description_fr")}

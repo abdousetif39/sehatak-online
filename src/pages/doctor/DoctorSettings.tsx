@@ -349,13 +349,13 @@ export default function DoctorSettings() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('photo_url')}</label>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <label className={`cursor-pointer px-4 py-2 ${uploadingImage ? 'bg-slate-200 text-slate-500' : 'bg-blue-50 hover:bg-blue-100 text-blue-600'} rounded-xl text-sm font-medium transition-colors whitespace-nowrap flex items-center justify-center gap-2`}>
+                  <label htmlFor="field_355043" className={`cursor-pointer px-4 py-2 ${uploadingImage ? 'bg-slate-200 text-slate-500' : 'bg-blue-50 hover:bg-blue-100 text-blue-600'} rounded-xl text-sm font-medium transition-colors whitespace-nowrap flex items-center justify-center gap-2`}>
                     {uploadingImage ? (
                       <><span className="w-4 h-4 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin"></span> {t('uploading')}</>
                     ) : (
                       <><Upload className="w-4 h-4" /> {t('upload_image')}</>
                     )}
-                    <input type="file" accept="image/*" onChange={handleImageUpload} disabled={uploadingImage} className="hidden" />
+                    <input name="field_355043" id="field_355043" type="file" accept="image/*" onChange={handleImageUpload} disabled={uploadingImage} className="hidden" />
                   </label>
                 </div>
               </div>
@@ -364,28 +364,28 @@ export default function DoctorSettings() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name_ar')}</label>
-              <input required type="text" name="firstNameAr"
+              <label htmlFor="firstNameAr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name_ar')}</label>
+              <input id="firstNameAr" required type="text" name="firstNameAr"
 title={t("arabic_letters_only")}
- value={formData.firstNameAr || formData.name?.split(' ')[0] || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" />
+ value={formData.firstNameAr || formData.name?.split(' ')[0] || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" autoComplete="given-name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name_ar')}</label>
-              <input required type="text" name="lastNameAr"
+              <label htmlFor="lastNameAr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name_ar')}</label>
+              <input id="lastNameAr" required type="text" name="lastNameAr"
 title={t("arabic_letters_only")}
- value={formData.lastNameAr || formData.name?.split(' ').slice(1).join(' ') || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" />
+ value={formData.lastNameAr || formData.name?.split(' ').slice(1).join(' ') || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" autoComplete="family-name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name_fr')}</label>
-              <input required type="text" name="firstNameFr"
+              <label htmlFor="firstNameFr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name_fr')}</label>
+              <input id="firstNameFr" required type="text" name="firstNameFr"
 title={t("latin_letters_only")}
- value={formData.firstNameFr || formData.name?.split(' ')[0] || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
+ value={formData.firstNameFr || formData.name?.split(' ')[0] || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" autoComplete="given-name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name_fr')}</label>
-              <input required type="text" name="lastNameFr"
+              <label htmlFor="lastNameFr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name_fr')}</label>
+              <input id="lastNameFr" required type="text" name="lastNameFr"
 title={t("latin_letters_only")}
- value={formData.lastNameFr || formData.name?.split(' ').slice(1).join(' ') || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
+ value={formData.lastNameFr || formData.name?.split(' ').slice(1).join(' ') || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" autoComplete="family-name" />
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('specialty') || 'Specialty'}</label>
@@ -407,8 +407,8 @@ title={t("latin_letters_only")}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {receptionists.length > 0 ? (
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('select_receptionist')}</label>
-                <select 
+                <label htmlFor="formdatarecepti" className="block text-sm font-medium text-slate-700 mb-1.5">{t('select_receptionist')}</label>
+                <select name="formdatarecepti" id="formdatarecepti" 
                   value={formData.receptionistId || ''} 
                   onChange={e => {
                     const recId = e.target.value;
@@ -429,8 +429,8 @@ title={t("latin_letters_only")}
               </div>
             ) : (
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('receptionist_name')}</label>
-                <input 
+                <label htmlFor="formdatarecepti" className="block text-sm font-medium text-slate-700 mb-1.5">{t('receptionist_name')}</label>
+                <input name="formdatarecepti" id="formdatarecepti" 
                   type="text" 
                   value={formData.receptionistName || ''} 
                   onChange={e => setFormData(prev => ({ ...prev, receptionistName: e.target.value }))} 
@@ -451,23 +451,23 @@ title={t("latin_letters_only")}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('clinic_name_ar')}</label>
-              <input type="text" name="clinicNameAr" value={formData.clinicNameAr || formData.clinicName || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" />
+              <label htmlFor="clinicNameAr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('clinic_name_ar')}</label>
+              <input id="clinicNameAr" type="text" name="clinicNameAr" value={formData.clinicNameAr || formData.clinicName || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="rtl" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('clinic_name_fr')}</label>
-              <input type="text" name="clinicNameFr" value={formData.clinicNameFr || formData.clinicName || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
+              <label htmlFor="clinicNameFr" className="block text-sm font-medium text-slate-700 mb-1.5">{t('clinic_name_fr')}</label>
+              <input id="clinicNameFr" type="text" name="clinicNameFr" value={formData.clinicNameFr || formData.clinicName || ''} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('state')}</label>
-              <select 
+              <label htmlFor="state" className="block text-sm font-medium text-slate-700 mb-1.5">{t('state')}</label>
+              <select id="state" 
                 name="state" 
                 value={getStateByName(String(formData.state))?.id || ''} 
                 onChange={handleChange} 
                 className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" 
                 required
-              >
+               autoComplete="address-level1">
                 <option value="">{t('select_state')}</option>
                 {WILAYAS.map(w => (
                   <option key={w.id} value={w.id}>
@@ -478,15 +478,15 @@ title={t("latin_letters_only")}
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('city')}</label>
-              <select 
+              <label htmlFor="city" className="block text-sm font-medium text-slate-700 mb-1.5">{t('city')}</label>
+              <select id="city" 
                 name="city" 
                 value={getCityArabicName(formData.city, formData.state)} 
                 onChange={handleChange} 
                 className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" 
                 required 
                 disabled={!formData.state}
-              >
+               autoComplete="address-level2">
                 <option value="">{t('select_city')}</option>
                 {formData.state &&
                   getCities(formData.state).map((c, index) => (
@@ -498,8 +498,8 @@ title={t("latin_letters_only")}
             </div>
             
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('address')}</label>
-              <input required type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+              <label htmlFor="address" className="block text-sm font-medium text-slate-700 mb-1.5">{t('address')}</label>
+              <input id="address" required type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" autoComplete="street-address" />
             </div>
             
             <div className="md:col-span-2">
@@ -555,16 +555,16 @@ title={t("latin_letters_only")}
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('phone')}</label>
-              <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
-              <label className="mt-3 flex items-center gap-2 cursor-pointer">
-                <input
+              <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1.5">{t('phone')}</label>
+              <input id="phone" required type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" autoComplete="tel" />
+              <label htmlFor="showPhoneInCard" className="mt-3 flex items-center gap-2 cursor-pointer">
+                <input id="showPhoneInCard"
                   type="checkbox"
                   name="showPhoneInCard"
                   checked={formData.showPhoneInCard || false}
                   onChange={handleChange}
                   className="w-4 h-4 text-blue-600 bg-slate-50 border-slate-300 rounded focus:ring-blue-500 cursor-pointer"
-                />
+                autoComplete="tel" />
                 <span className="text-sm text-slate-700 font-medium">{t('show_phone_in_card')}</span>
               </label>
             </div>
@@ -601,16 +601,16 @@ title={t("latin_letters_only")}
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('start_time')}</label>
-              <input required type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+              <label htmlFor="startTime" className="block text-sm font-medium text-slate-700 mb-1.5">{t('start_time')}</label>
+              <input id="startTime" required type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('end_time')}</label>
-              <input required type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+              <label htmlFor="endTime" className="block text-sm font-medium text-slate-700 mb-1.5">{t('end_time')}</label>
+              <input id="endTime" required type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('appointment_duration')}</label>
-              <select name="appointmentDuration" value={formData.appointmentDuration} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors">
+              <label htmlFor="appointmentDuration" className="block text-sm font-medium text-slate-700 mb-1.5">{t('appointment_duration')}</label>
+              <select id="appointmentDuration" name="appointmentDuration" value={formData.appointmentDuration} onChange={handleChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors">
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -668,34 +668,34 @@ title={t("latin_letters_only")}
 
         <form onSubmit={handlePasswordChange} className="space-y-4 max-w-md">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('current_password')}</label>
-            <input
+            <label htmlFor="currentpassword" className="block text-sm font-medium text-slate-700 mb-1.5">{t('current_password')}</label>
+            <input name="currentpassword" id="currentpassword"
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"
               required
-            />
+             autoComplete="current-password" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('new_password')}</label>
-            <input
+            <label htmlFor="newpassword" className="block text-sm font-medium text-slate-700 mb-1.5">{t('new_password')}</label>
+            <input name="newpassword" id="newpassword"
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"
               required
-            />
+             autoComplete="new-password" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('confirm_new_password')}</label>
-            <input
+            <label htmlFor="confirmpassword" className="block text-sm font-medium text-slate-700 mb-1.5">{t('confirm_new_password')}</label>
+            <input name="confirmpassword" id="confirmpassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"
               required
-            />
+             autoComplete="new-password" />
           </div>
           <div className="pt-2">
             <button

@@ -325,17 +325,17 @@ export default function RegisterDoctor() {
             {step === 0 && (
               <div className="space-y-6 max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{t('email')}</label>
+                  <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-2">{t('email')}</label>
                   <div className="relative">
                     <Mail className="absolute right-3 top-3.5 w-5 h-5 text-slate-400 ltr:left-3 ltr:right-auto" />
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" />
+                    <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" autoComplete="email" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{t('password')}</label>
+                  <label htmlFor="password" className="block text-sm font-bold text-slate-700 mb-2">{t('password')}</label>
                   <div className="relative">
                     <Lock className="absolute right-3 top-3.5 w-5 h-5 text-slate-400 ltr:left-3 ltr:right-auto" />
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" />
+                    <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" autoComplete="current-password" />
                   </div>
                   {formData.password && (
                     <div className="mt-3 flex gap-1 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -347,10 +347,10 @@ export default function RegisterDoctor() {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_confirm_password')}</label>
+                  <label htmlFor="confirmPassword" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_confirm_password')}</label>
                   <div className="relative">
                     <Lock className="absolute right-3 top-3.5 w-5 h-5 text-slate-400 ltr:left-3 ltr:right-auto" />
-                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" />
+                    <input id="confirmPassword" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" autoComplete="new-password" />
                   </div>
                 </div>
               </div>
@@ -363,36 +363,36 @@ export default function RegisterDoctor() {
                   <div className="space-y-6">
                     <h3 className="font-bold text-slate-800 border-b pb-2">{t('arabic')}</h3>
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_ar')}</label>
-                      <input type="text" name="firstNameAr" value={formData.firstNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="rtl" />
+                      <label htmlFor="firstNameAr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_ar')}</label>
+                      <input id="firstNameAr" type="text" name="firstNameAr" value={formData.firstNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="rtl" autoComplete="given-name" />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_last_name_ar')}</label>
-                      <input type="text" name="lastNameAr" value={formData.lastNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="rtl" />
+                      <label htmlFor="lastNameAr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_last_name_ar')}</label>
+                      <input id="lastNameAr" type="text" name="lastNameAr" value={formData.lastNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="rtl" autoComplete="family-name" />
                     </div>
                   </div>
                   <div className="space-y-6">
                     <h3 className="font-bold text-slate-800 border-b pb-2">{t('french')}</h3>
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_fr')}</label>
-                      <input type="text" name="firstNameFr" value={formData.firstNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="ltr" />
+                      <label htmlFor="firstNameFr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_fr')}</label>
+                      <input id="firstNameFr" type="text" name="firstNameFr" value={formData.firstNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="ltr" autoComplete="given-name" />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_last_name_fr')}</label>
-                      <input type="text" name="lastNameFr" value={formData.lastNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="ltr" />
+                      <label htmlFor="lastNameFr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_last_name_fr')}</label>
+                      <input id="lastNameFr" type="text" name="lastNameFr" value={formData.lastNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="ltr" autoComplete="family-name" />
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_phone')}</label>
+                    <label htmlFor="phone" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_phone')}</label>
                     <div className="relative">
                       <Phone className="absolute right-3 top-3.5 w-5 h-5 text-slate-400 ltr:left-3 ltr:right-auto" />
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" />
+                      <input id="phone" type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full pl-10 pr-10 rtl:pr-10 rtl:pl-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-left" dir="ltr" autoComplete="tel" />
                     </div>
-                    <label className="flex items-center gap-2 mt-3 cursor-pointer">
-                      <input type="checkbox" name="showPhone" checked={formData.showPhone} onChange={handleChange} className="w-4 h-4 text-blue-600 rounded" />
+                    <label htmlFor="showPhone" className="flex items-center gap-2 mt-3 cursor-pointer">
+                      <input id="showPhone" type="checkbox" name="showPhone" checked={formData.showPhone} onChange={handleChange} className="w-4 h-4 text-blue-600 rounded" autoComplete="tel" />
                       <span className="text-sm text-slate-600">{t('reg_show_phone')}</span>
                     </label>
                   </div>
@@ -412,19 +412,19 @@ export default function RegisterDoctor() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_clinic_ar')}</label>
-                    <input type="text" name="clinicNameAr" value={formData.clinicNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="rtl" />
+                    <label htmlFor="clinicNameAr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_clinic_ar')}</label>
+                    <input id="clinicNameAr" type="text" name="clinicNameAr" value={formData.clinicNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="rtl" />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_clinic_fr')}</label>
-                    <input type="text" name="clinicNameFr" value={formData.clinicNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
+                    <label htmlFor="clinicNameFr" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_clinic_fr')}</label>
+                    <input id="clinicNameFr" type="text" name="clinicNameFr" value={formData.clinicNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
                   </div>
                 </div>
 
                 <div className="pt-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_state')}</label>
-                    <select name="state" value={formData.state} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label htmlFor="state" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_state')}</label>
+                    <select id="state" name="state" value={formData.state} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" autoComplete="address-level1">
                       <option value="">{t('select')}</option>
                       {WILAYAS.map(w => (
                         <option key={w.id} value={w.id}>{w.id} - {isAr ? w.ar : w.fr}</option>
@@ -432,8 +432,8 @@ export default function RegisterDoctor() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_city')}</label>
-                    <select name="city" value={formData.city} onChange={handleChange} disabled={!formData.state} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none disabled:opacity-50">
+                    <label htmlFor="city" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_city')}</label>
+                    <select id="city" name="city" value={formData.city} onChange={handleChange} disabled={!formData.state} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none disabled:opacity-50" autoComplete="address-level2">
                       <option value="">{t('select')}</option>
                       {cities.map((c: any, idx) => (
                         <option key={c.ar || idx} value={isAr ? c.ar : c.fr}>{isAr ? c.ar : c.fr}</option>
@@ -448,8 +448,8 @@ export default function RegisterDoctor() {
             {step === 3 && (
               <div className="space-y-6 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_address')}</label>
-                  <input type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" />
+                  <label htmlFor="address" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_address')}</label>
+                  <input id="address" type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" autoComplete="street-address" />
                 </div>
                 
                 <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-center space-y-4">
@@ -464,12 +464,12 @@ export default function RegisterDoctor() {
                   
                   <div className="grid grid-cols-2 gap-4 mt-6">
                     <div>
-                      <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">{t('reg_latitude')}</label>
-                      <input type="text" name="latitude" value={formData.latitude} onChange={handleChange} placeholder="36.XXXX" className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg outline-none text-center" dir="ltr" />
+                      <label htmlFor="latitude" className="block text-xs font-bold text-slate-500 mb-1 uppercase">{t('reg_latitude')}</label>
+                      <input id="latitude" type="text" name="latitude" value={formData.latitude} onChange={handleChange} placeholder="36.XXXX" className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg outline-none text-center" dir="ltr" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">{t('reg_longitude')}</label>
-                      <input type="text" name="longitude" value={formData.longitude} onChange={handleChange} placeholder="3.XXXX" className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg outline-none text-center" dir="ltr" />
+                      <label htmlFor="longitude" className="block text-xs font-bold text-slate-500 mb-1 uppercase">{t('reg_longitude')}</label>
+                      <input id="longitude" type="text" name="longitude" value={formData.longitude} onChange={handleChange} placeholder="3.XXXX" className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg outline-none text-center" dir="ltr" />
                     </div>
                   </div>
                 </div>
@@ -502,16 +502,16 @@ export default function RegisterDoctor() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-slate-100">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_start_time')}</label>
-                    <input type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
+                    <label htmlFor="startTime" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_start_time')}</label>
+                    <input id="startTime" type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_end_time')}</label>
-                    <input type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
+                    <label htmlFor="endTime" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_end_time')}</label>
+                    <input id="endTime" type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" dir="ltr" />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_app_duration')}</label>
-                    <select name="appointmentDuration" value={formData.appointmentDuration} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label htmlFor="appointmentDuration" className="block text-sm font-bold text-slate-700 mb-2">{t('reg_app_duration')}</label>
+                    <select id="appointmentDuration" name="appointmentDuration" value={formData.appointmentDuration} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
                       {[10, 15, 20, 30, 45, 60].map(m => (
                         <option key={m} value={m}>{t(`min_${m}`)}</option>
                       ))}

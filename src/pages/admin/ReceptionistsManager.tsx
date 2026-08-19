@@ -244,29 +244,29 @@ function UserModal({ user, doctors, onClose, onSuccess }: { user: any, doctors: 
           {!user && (
             <>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">{t('login_email')}</label>
-                <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">{t('login_email')}</label>
+                <input name="email" id="email" required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="email" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">{t('password')}</label>
-                <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+                <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">{t('password')}</label>
+                <input name="password" id="password" required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="current-password" />
               </div>
             </>
           )}
           
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{t('name')}</label>
-            <input required type="text" value={name} onChange={e => setName(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" />
+            <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">{t('name')}</label>
+            <input name="name" id="name" required type="text" value={name} onChange={e => setName(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{t('phone')}</label>
-            <input required type="text" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+            <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">{t('phone')}</label>
+            <input name="phone" id="phone" required type="text" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="tel" />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{t('select_doctor')}</label>
-            <select required value={doctorId} onChange={e => setDoctorId(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none">
+            <label htmlFor="doctorid" className="block text-sm font-medium text-slate-700 mb-1">{t('select_doctor')}</label>
+            <select name="doctorid" id="doctorid" required value={doctorId} onChange={e => setDoctorId(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none">
               {doctors.map((d: any) => <option key={d.id} value={d.id}>{getDoctorFullName(d, i18n.language)}</option>)}
             </select>
           </div>

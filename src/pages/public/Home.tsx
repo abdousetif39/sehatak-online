@@ -161,28 +161,28 @@ ${shareUrl}`;
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-12 flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute right-3 top-3 w-5 h-5 text-slate-400" />
-          <input
+          <input name="searchname" id="searchname"
             type="text"
             placeholder={t('patient_name')}
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
             className="w-full pr-10 pl-4 py-2.5 border-slate-200 rounded-xl bg-slate-50 focus:bg-white transition-colors"
-          />
+           autoComplete="off" />
         </div>
         <div className="flex-1">
-          <select aria-label={t('wilaya')} value={selectedState} onChange={handleStateChange} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50">
+          <select name="selectedstate" id="selectedstate" aria-label={t('wilaya')} value={selectedState} onChange={handleStateChange} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50" autoComplete="address-level1">
             <option value="">{t('all_states')}</option>
             {ALGERIA_STATES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
         <div className="flex-1">
-          <select aria-label={t('commune')} value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50 disabled:opacity-50">
+          <select name="selectedcity" id="selectedcity" aria-label={t('commune')} value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50 disabled:opacity-50">
             <option value="">{t('all_cities')}</option>
             {selectedState && getCitiesForState(selectedState, i18n.language).map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
         <div className="flex-1">
-          <select aria-label={t('specialty')} value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50">
+          <select name="selectedspecial" id="selectedspecial" aria-label={t('specialty')} value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)} className="w-full px-4 py-2.5 border-slate-200 rounded-xl bg-slate-50">
             <option value="">{t('all_specialties') || 'All specialties'}</option>
             {MEDICAL_SPECIALTIES.map(s => <option key={s.id} value={s.id}>{i18n.language.startsWith('ar') ? s.ar : s.fr}</option>)}
           </select>
@@ -201,7 +201,7 @@ ${shareUrl}`;
             <div key={doctor.id} className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-slate-200 p-6 flex flex-col group">
               <div className="flex items-start gap-4 mb-4">
                 {doctor.photoUrl ? (
-                  <img src={doctor.photoUrl} alt={getDoctorFullName(doctor, i18n.language)} className="w-16 h-16 rounded-2xl object-cover bg-slate-100 shrink-0" referrerPolicy="no-referrer" />
+                  <img src={doctor.photoUrl} alt={getDoctorFullName(doctor, i18n.language)} className="w-16 h-16 rounded-2xl object-cover bg-slate-100 shrink-0" referrerPolicy="no-referrer"   />
                 ) : (
                   <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xl shrink-0">
                     {getDoctorFullName(doctor, i18n.language).charAt(0) || doctor.name?.charAt(0) || 'D'}

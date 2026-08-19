@@ -538,8 +538,8 @@ function AddAppointmentModal({
         <h2 className="text-xl font-bold mb-6">{t('create_new_appointment')}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">{t('time')}</label>
-            <select
+            <label htmlFor="time" className="block text-sm font-medium mb-1">{t('time')}</label>
+            <select name="time" id="time"
               value={time}
               onChange={(e) => setTime(e.target.value)}
               className="w-full border rounded-xl p-3"
@@ -554,38 +554,38 @@ function AddAppointmentModal({
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">{t('patient_name')}</label>
-            <input
+            <label htmlFor="firstname" className="block text-sm font-medium mb-1">{t('patient_name')}</label>
+            <input name="firstname" id="firstname"
               type="text"
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
               className="w-full border rounded-xl p-3"
               required
-            />
+             autoComplete="given-name" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">{t('patient_last_name')}</label>
-            <input
+            <label htmlFor="lastname" className="block text-sm font-medium mb-1">{t('patient_last_name')}</label>
+            <input name="lastname" id="lastname"
               type="text"
               value={lastName}
               onChange={e => setLastName(e.target.value)}
               className="w-full border rounded-xl p-3"
               required
-            />
+             autoComplete="family-name" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">{t('phone')}</label>
-            <input
+            <label htmlFor="phone" className="block text-sm font-medium mb-1">{t('phone')}</label>
+            <input name="phone" id="phone"
               type="tel"
               value={phone}
               onChange={e => setPhone(e.target.value)}
               className="w-full border rounded-xl p-3"
               required
-            />
+             autoComplete="tel" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">{t('file_number')}</label>
-            <input
+            <label htmlFor="filenumber" className="block text-sm font-medium mb-1">{t('file_number')}</label>
+            <input name="filenumber" id="filenumber"
               type="text"
               value={fileNumber}
               onChange={e => setFileNumber(e.target.value)}

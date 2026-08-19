@@ -96,12 +96,12 @@ export default function AuthLayout() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('email')}</label>
+            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">{t('email')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <Mail className="h-5 w-5 text-slate-400" />
               </div>
-              <input
+              <input name="email" id="email"
                 type="email"
                 required
                 value={email}
@@ -109,17 +109,17 @@ export default function AuthLayout() {
                 className="block w-full pr-10 pl-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors text-left"
                 placeholder={t('email_placeholder')}
                 dir="ltr"
-              />
+               autoComplete="email" />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('password')}</label>
+            <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1.5">{t('password')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <Lock className="h-5 w-5 text-slate-400" />
               </div>
-              <input
+              <input name="password" id="password"
                 type="password"
                 required
                 value={password}
@@ -127,7 +127,7 @@ export default function AuthLayout() {
                 className="block w-full pr-10 pl-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors text-left"
                 placeholder={t('password_placeholder')}
                 dir="ltr"
-              />
+               autoComplete="current-password" />
             </div>
           </div>
 

@@ -72,14 +72,14 @@ export default function EditAppointmentModal({
 
         <div className="space-y-4">
 
-          <input
+          <input name="date" id="date"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className="w-full border rounded-xl p-3"
           />
 
-          <select
+          <select name="time" id="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
           className="w-full border rounded-xl p-3"

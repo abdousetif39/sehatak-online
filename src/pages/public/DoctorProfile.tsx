@@ -786,20 +786,20 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                     <form onSubmit={handleBooking} className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs text-slate-600 mb-1">{t('patient_name')} *</label>
-                          <input required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
+                          <label htmlFor="formdatafirstna" className="block text-xs text-slate-600 mb-1">{t('patient_name')} *</label>
+                          <input name="formdatafirstna" id="formdatafirstna" required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-600 mb-1">{t('patient_last_name')} *</label>
-                          <input required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
+                          <label htmlFor="formdatalastnam" className="block text-xs text-slate-600 mb-1">{t('patient_last_name')} *</label>
+                          <input name="formdatalastnam" id="formdatalastnam" required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-600 mb-1">{t('phone')} *</label>
-                          <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr" />
+                          <label htmlFor="formdataphone" className="block text-xs text-slate-600 mb-1">{t('phone')} *</label>
+                          <input name="formdataphone" id="formdataphone" required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr"  autoComplete="tel" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-600 mb-1">{t('file_number')}</label>
-                          <input type="text" value={formData.fileNumber} onChange={e => setFormData({...formData, fileNumber: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr" />
+                          <label htmlFor="formdatafilenum" className="block text-xs text-slate-600 mb-1">{t('file_number')}</label>
+                          <input name="formdatafilenum" id="formdatafilenum" type="text" value={formData.fileNumber} onChange={e => setFormData({...formData, fileNumber: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all" dir="ltr" />
                         </div>
                       </div>
                       

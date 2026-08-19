@@ -472,15 +472,15 @@ const batch = writeBatch(db);
         <div className="flex items-center gap-3">
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2" />
-            <input 
+            <input name="searchterm" id="searchterm" 
               type="text" 
               placeholder={t('search_patient')}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               className="pl-3 pr-9 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 w-full md:w-64 transition-colors"
-            />
+             autoComplete="off" />
           </div>
-          <input 
+          <input name="selecteddate" id="selecteddate" 
             type="date" 
             value={selectedDate}
             onChange={e => setSelectedDate(e.target.value)}

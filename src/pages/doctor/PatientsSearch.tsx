@@ -102,13 +102,13 @@ export default function PatientsSearch() {
         <form onSubmit={handleSearch} className="flex gap-4">
           <div className="flex-1 relative">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input 
+            <input name="searchterm" id="searchterm" 
               type="text" 
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               placeholder={t('search_placeholder_patients')}
               className="w-full pr-12 pl-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors text-lg"
-            />
+             autoComplete="off" />
           </div>
           <button 
             type="submit"

@@ -327,28 +327,28 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('first_name_ar')}</label>
-              <input required type="text" value={firstNameAr} onChange={e => setFirstNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl" />
+              <label htmlFor="firstnamear" className="block text-sm font-medium text-slate-700 mb-1">{t('first_name_ar')}</label>
+              <input name="firstnamear" id="firstnamear" required type="text" value={firstNameAr} onChange={e => setFirstNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl"  autoComplete="given-name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('last_name_ar')}</label>
-              <input required type="text" value={lastNameAr} onChange={e => setLastNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl" />
+              <label htmlFor="lastnamear" className="block text-sm font-medium text-slate-700 mb-1">{t('last_name_ar')}</label>
+              <input name="lastnamear" id="lastnamear" required type="text" value={lastNameAr} onChange={e => setLastNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl"  autoComplete="family-name" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('first_name_fr')}</label>
-              <input required type="text" value={firstNameFr} onChange={e => setFirstNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+              <label htmlFor="firstnamefr" className="block text-sm font-medium text-slate-700 mb-1">{t('first_name_fr')}</label>
+              <input name="firstnamefr" id="firstnamefr" required type="text" value={firstNameFr} onChange={e => setFirstNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="given-name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('last_name_fr')}</label>
-              <input required type="text" value={lastNameFr} onChange={e => setLastNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+              <label htmlFor="lastnamefr" className="block text-sm font-medium text-slate-700 mb-1">{t('last_name_fr')}</label>
+              <input name="lastnamefr" id="lastnamefr" required type="text" value={lastNameFr} onChange={e => setLastNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="family-name" />
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{t('phone')}</label>
-            <input required type="text" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+            <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">{t('phone')}</label>
+            <input name="phone" id="phone" required type="text" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr"  autoComplete="tel" />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
@@ -362,19 +362,19 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('clinic_name_ar')}</label>
-              <input type="text" value={clinicNameAr} onChange={e => setClinicNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl" />
+              <label htmlFor="clinicnamear" className="block text-sm font-medium text-slate-700 mb-1">{t('clinic_name_ar')}</label>
+              <input name="clinicnamear" id="clinicnamear" type="text" value={clinicNameAr} onChange={e => setClinicNameAr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="rtl" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('clinic_name_fr')}</label>
-              <input type="text" value={clinicNameFr} onChange={e => setClinicNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
+              <label htmlFor="clinicnamefr" className="block text-sm font-medium text-slate-700 mb-1">{t('clinic_name_fr')}</label>
+              <input name="clinicnamefr" id="clinicnamefr" type="text" value={clinicNameFr} onChange={e => setClinicNameFr(e.target.value)} className="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" dir="ltr" />
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('wilaya')}</label>
-              <select required value={getStateByName(String(stateName))?.id || ''} onChange={e => setStateName(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none">
+              <label htmlFor="getstatebynames" className="block text-sm font-medium text-slate-700 mb-1">{t('wilaya')}</label>
+              <select name="getstatebynames" id="getstatebynames" required value={getStateByName(String(stateName))?.id || ''} onChange={e => setStateName(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none" autoComplete="address-level1">
                 <option value="">{t('select_state')}</option>
                 {WILAYAS.map(w => (
                   <option key={w.id} value={w.id}>
@@ -384,8 +384,8 @@ function UserModal({ user, onClose, onSuccess }: { user: any, onClose: () => voi
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{t('commune')}</label>
-              <select required value={getCityArabicName(city, stateName)} onChange={e => setCity(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none" disabled={!stateName}>
+              <label htmlFor="getcityarabicna" className="block text-sm font-medium text-slate-700 mb-1">{t('commune')}</label>
+              <select name="getcityarabicna" id="getcityarabicna" required value={getCityArabicName(city, stateName)} onChange={e => setCity(e.target.value)} className="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-blue-600 outline-none" disabled={!stateName} autoComplete="address-level2">
                 <option value="">{t('select_city')}</option>
                 {stateName && getCities(stateName).map((c, index) => (
                     <option key={index} value={c.ar}>

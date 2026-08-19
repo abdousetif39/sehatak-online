@@ -456,13 +456,13 @@ export default function AdminSupportChat() {
             <div className={`w-full md:w-[350px] flex flex-col bg-white border-r border-slate-200 rtl:border-r-0 rtl:border-l ${selectedDoctorForChat ? 'hidden md:flex' : 'flex'}`}>
               <div className="p-4 border-b border-slate-200">
                 <div className="relative mb-3">
-                  <input
+                  <input name="searchterm" id="searchterm"
                     type="text"
                     placeholder={t('search_doctor')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 rtl:pr-9 rtl:pl-4 text-sm focus:ring-2 focus:ring-blue-600 outline-none"
-                  />
+                   autoComplete="off" />
                 </div>
                 
                 <div className="flex items-center justify-between">
@@ -680,7 +680,7 @@ export default function AdminSupportChat() {
                   <div className="p-4 bg-white border-t border-slate-200 shrink-0">
                     <form onSubmit={handleSendMessage} className="flex gap-2 items-end">
                       <div className="flex-1 relative">
-                        <textarea
+                        <textarea name="newmessage" id="newmessage"
                           value={newMessage}
                           onChange={(e) => setNewMessage(e.target.value)}
                           onKeyDown={(e) => {
@@ -794,10 +794,10 @@ export default function AdminSupportChat() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">
+                  <label htmlFor="broadcasttitle" className="block text-sm font-bold text-slate-700 mb-2">
                     {t('broadcast_title')}
                   </label>
-                  <input
+                  <input name="broadcasttitle" id="broadcasttitle"
                     type="text"
                     value={broadcastTitle}
                     onChange={e => setBroadcastTitle(e.target.value)}
@@ -807,10 +807,10 @@ export default function AdminSupportChat() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">
+                  <label htmlFor="broadcasttext" className="block text-sm font-bold text-slate-700 mb-2">
                     {t('broadcast_text')}
                   </label>
-                  <textarea
+                  <textarea name="broadcasttext" id="broadcasttext"
                     value={broadcastText}
                     onChange={e => setBroadcastText(e.target.value)}
                     className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-600 outline-none min-h-[120px]"

@@ -63,14 +63,14 @@ export default function SpecialtySelect({ value, onChange, error }: SpecialtySel
         <div className="absolute z-50 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
           <div className="p-2 border-b border-slate-100 flex items-center gap-2 px-3">
             <Search className="w-4 h-4 text-slate-400 shrink-0" />
-            <input 
+            <input name="search" id="search" 
               type="text" 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('search_specialty') || 'Search...'}
               className="w-full text-sm outline-none bg-transparent py-1.5"
               autoFocus
-            />
+             autoComplete="off" />
           </div>
           
           <div className="max-h-60 overflow-y-auto p-1 custom-scrollbar">

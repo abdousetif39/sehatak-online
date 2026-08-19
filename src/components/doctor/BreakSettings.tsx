@@ -70,8 +70,8 @@ export default function BreakSettings({
   ) => (
     <div className="border rounded-xl p-4 mt-5">
 
-      <label className="flex items-center gap-3 mb-4">
-        <input
+      <label htmlFor="field_691304" className="flex items-center gap-3 mb-4">
+        <input name="field_691304" id="field_691304"
           type="checkbox"
           checked={formData[key]?.enabled || false}
           onChange={e =>
@@ -87,11 +87,11 @@ export default function BreakSettings({
           <div className="grid grid-cols-2 gap-4">
 
             <div>
-              <label className="block mb-2">
+              <label htmlFor="formdatakeystar" className="block mb-2">
                 {t("from")}
               </label>
 
-              <input
+              <input name="formdatakeystar" id="formdatakeystar"
                 type="time"
                 value={formData[key]?.start || ""}
                 onChange={e =>
@@ -102,11 +102,11 @@ export default function BreakSettings({
             </div>
 
             <div>
-              <label className="block mb-2">
+              <label htmlFor="formdatakeyend" className="block mb-2">
                 {t("to")}
               </label>
 
-              <input
+              <input name="formdatakeyend" id="formdatakeyend"
                 type="time"
                 value={formData[key]?.end || ""}
                 onChange={e =>
@@ -154,8 +154,8 @@ export default function BreakSettings({
 
       </div>
 
-      <label className="flex items-center gap-3">
-        <input
+      <label htmlFor="field_876833" className="flex items-center gap-3">
+        <input name="field_876833" id="field_876833"
           type="checkbox"
           checked={formData.breakEnabled || false}
           onChange={toggleMain}

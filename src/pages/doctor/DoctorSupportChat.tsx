@@ -290,7 +290,7 @@ export default function DoctorSupportChat() {
       <div className="p-4 bg-white border-t border-slate-200">
         <form onSubmit={handleSendMessage} className="flex gap-2 items-end">
           <div className="flex-1 relative">
-            <textarea
+            <textarea name="newmessage" id="newmessage"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={handleKeyDown}

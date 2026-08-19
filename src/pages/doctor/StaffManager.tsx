@@ -226,23 +226,23 @@ function StaffModal({ onClose, onSuccess, doctorId }: { onClose: () => void, onS
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name')}</label>
-                <input required type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+                <label htmlFor="firstname" className="block text-sm font-medium text-slate-700 mb-1.5">{t('first_name')}</label>
+                <input name="firstname" id="firstname" required type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"  autoComplete="given-name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name')}</label>
-                <input required type="text" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" />
+                <label htmlFor="lastname" className="block text-sm font-medium text-slate-700 mb-1.5">{t('last_name')}</label>
+                <input name="lastname" id="lastname" required type="text" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors"  autoComplete="family-name" />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('email')}</label>
-              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">{t('email')}</label>
+              <input name="email" id="email" required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr"  autoComplete="email" />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('password')}</label>
-              <input required type="password" minLength={6} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr" />
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1.5">{t('password')}</label>
+              <input name="password" id="password" required type="password" minLength={6} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:bg-white transition-colors" dir="ltr"  autoComplete="current-password" />
             </div>
           </div>
           
