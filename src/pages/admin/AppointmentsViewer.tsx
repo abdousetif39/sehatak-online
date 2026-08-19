@@ -112,10 +112,10 @@ export default function AppointmentsViewer() {
                 <div className="flex-1 flex flex-col">
                   <div className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
                     <UserIcon className="w-4 h-4 text-slate-400" />
-                    {app.patientName} {app.patientLastName}
+                    {(app.patientName + ' ' + (app.patientLastName || '')).trim()}
                   </div>
                   <div className="text-[11px] text-slate-500 flex items-center gap-2 mt-1">
-                    <Phone className="w-3 h-3" /> {app.patientPhone}
+                    <Phone className="w-3 h-3" /> <span dir="ltr">{app.patientPhone}</span>
                     {app.patientFileNumber && (
                       <>
                         <span className="mx-1">•</span>

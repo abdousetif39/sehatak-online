@@ -153,7 +153,7 @@ export default function DoctorSettings() {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'حدث خطأ أثناء رفع الصورة');
+      setError(err.message || t('upload_error') || 'Error uploading image');
     } finally {
       setUploadingImage(false);
     }
@@ -351,9 +351,9 @@ export default function DoctorSettings() {
                 <div className="flex flex-col sm:flex-row gap-2">
                   <label className={`cursor-pointer px-4 py-2 ${uploadingImage ? 'bg-slate-200 text-slate-500' : 'bg-blue-50 hover:bg-blue-100 text-blue-600'} rounded-xl text-sm font-medium transition-colors whitespace-nowrap flex items-center justify-center gap-2`}>
                     {uploadingImage ? (
-                      <><span className="w-4 h-4 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin"></span> {i18n.language === 'ar' ? 'جاري الرفع...' : 'Uploading...'}</>
+                      <><span className="w-4 h-4 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin"></span> {t('uploading')}</>
                     ) : (
-                      <><Upload className="w-4 h-4" /> {i18n.language === 'ar' ? 'رفع صورة' : 'Upload Image'}</>
+                      <><Upload className="w-4 h-4" /> {t('upload_image')}</>
                     )}
                     <input type="file" accept="image/*" onChange={handleImageUpload} disabled={uploadingImage} className="hidden" />
                   </label>

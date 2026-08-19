@@ -80,8 +80,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 import { format, parse, addMinutes, isBefore, addDays, getDay, isSameDay, startOfDay, startOfWeek } from 'date-fns';
-import { useTranslation } from 'react-i18next';
-import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
+import { useTranslation, Trans } from 'react-i18next';
+import { getDoctorFullName, getDoctorDisplayName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
 import { getStateName, getCityName } from '../../utils/locationUtils';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
@@ -96,7 +96,7 @@ const { id } = useParams();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
   useEffect(() => {
     if (doctor) {
-      document.title = `${getDoctorFullName(doctor, i18n.language)} | ${t('app_title')}`;
+      document.title = `${getDoctorDisplayName(doctor, i18n.language)} | ${t('app_title')}`;
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
         metaDesc.setAttribute('content', t('meta_doctor_desc', {
@@ -121,6 +121,7 @@ const { id } = useParams();
   const [viewStartDate, setViewStartDate] = useState<Date>(startOfDay(new Date()));
   const [weeklyBookedSlots, setWeeklyBookedSlots] = useState<Record<string, string[]>>({});
   const [selectedTime, setSelectedTime] = useState<string>('');
+  const [bookedTime, setBookedTime] = useState<string>('');
   
   // Form state
   const [formData, setFormData] = useState({
@@ -319,6 +320,17 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
     });
   return;
 }
+
+    const cleanPhone = formData.phone.trim();
+    if (!/^\d{10}$/.test(cleanPhone)) {
+      setMessageModal({
+        open: true,
+        type: 'error',
+        title: i18n.language.startsWith('ar') ? 'رقم الهاتف غير صحيح' : 'Numéro de téléphone invalide',
+        message: i18n.language.startsWith('ar') ? 'يرجى إدخال رقم هاتف مكون من 10 أرقام بالضبط.' : 'Veuillez saisir un numéro de téléphone composé exactement de 10 chiffres.'
+      });
+      return;
+    }
     if (!selectedTime) {
       setMessageModal({
       open: true,
@@ -337,9 +349,9 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
       const appointment: any = {
         id: appointmentId,
         doctorId: doctor.id,
-        doctorName: getDoctorFullName(doctor, i18n.language) || doctor.name,
-        patientName: formData.firstName,
-        patientLastName: formData.lastName,
+        doctorName: getDoctorDisplayName(doctor, i18n.language) || doctor.name,
+        patientName: formData.firstName.trim(),
+        patientLastName: formData.lastName.trim(),
         patientPhone: formData.phone,
         date: formattedDate,
         time: selectedTime,
@@ -359,6 +371,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
       });
       await batch.commit();
       
+      setBookedTime(selectedTime);
       setSuccess(true);
       setRefreshSlots(prev => prev + 1);
       setFormData({ firstName: '', lastName: '', phone: '', fileNumber: '' });
@@ -388,11 +401,15 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
           </div>
           <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('booking_confirmed_title')}</h2>
           <p className="text-slate-600 text-lg mb-8">
-            {t('booking_details', {
-              doctorName: getDoctorFullName(doctor, i18n.language) || doctor.name,
-              date: format(selectedDate, 'yyyy-MM-dd'),
-              time: selectedTime
-            })}
+            <Trans
+              i18nKey="booking_details"
+              values={{
+                doctorName: getDoctorDisplayName(doctor, i18n.language) || doctor.name,
+                date: format(selectedDate, 'yyyy-MM-dd'),
+                time: bookedTime
+              }}
+              components={{ ltr: <span dir="ltr" /> }}
+            />
           </p>
                     <button 
             onClick={() => setSuccess(false)}
@@ -476,7 +493,7 @@ if (!doctor.workingDays?.includes(getDay(selectedDate))) return [];
                   {getDoctorFullName(doctor, i18n.language).charAt(0) || doctor.name?.charAt(0) || 'D'}
                 </div>
               )}
-              <h1 className="text-xl font-bold text-slate-900 mb-2">{t('dr_prefix')}{getDoctorFullName(doctor, i18n.language)}</h1>
+              <h1 className="text-xl font-bold text-slate-900 mb-2">{getDoctorDisplayName(doctor, i18n.language)}</h1>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
                 <Stethoscope className="w-4 h-4" />
                 {getDoctorSpecialty(doctor, i18n.language)}

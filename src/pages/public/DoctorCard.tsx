@@ -3,7 +3,7 @@ import { Doctor } from '../../types';
 import { MapPin, Stethoscope, Calendar as CalendarIcon, Clock, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getDoctorFullName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
+import { getDoctorFullName, getDoctorDisplayName, getDoctorSpecialty, getDoctorClinicName, formatWorkingDays } from '../../utils/doctorUtils';
 import { addDays, getDay, parse, addMinutes, format, isBefore, isSameDay } from 'date-fns';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -140,7 +140,7 @@ current = addMinutes(current, doctor.appointmentDuration || 15);
           </div>
         )}
         <div>
-          <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">{getDoctorFullName(doctor, i18n.language)}</h3>
+          <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">{getDoctorDisplayName(doctor, i18n.language)}</h3>
           <div className="flex items-center gap-1.5 text-sm text-slate-600 mt-1">
             <Stethoscope className="w-4 h-4 text-blue-500" />
             <span>{getDoctorSpecialty(doctor, i18n.language)}</span>

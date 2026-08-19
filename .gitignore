@@ -6,3 +6,14 @@ coverage/
 *.log
 .env*
 !.env.example
+/keys.txt
+
+/patch_*
+/fix-*
+/check_*
+/extract_*
+/test*
+/cal_extract.txt
+/end_map.txt
+/extracted_*.json
+/metadata.json

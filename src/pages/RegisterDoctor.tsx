@@ -361,7 +361,7 @@ export default function RegisterDoctor() {
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-6">
-                    <h3 className="font-bold text-slate-800 border-b pb-2">عربي</h3>
+                    <h3 className="font-bold text-slate-800 border-b pb-2">{t('arabic')}</h3>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_ar')}</label>
                       <input type="text" name="firstNameAr" value={formData.firstNameAr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="rtl" />
@@ -372,7 +372,7 @@ export default function RegisterDoctor() {
                     </div>
                   </div>
                   <div className="space-y-6">
-                    <h3 className="font-bold text-slate-800 border-b pb-2">Français</h3>
+                    <h3 className="font-bold text-slate-800 border-b pb-2">{t('french')}</h3>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">{t('reg_first_name_fr')}</label>
                       <input type="text" name="firstNameFr" value={formData.firstNameFr} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" dir="ltr" />

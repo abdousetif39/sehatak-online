@@ -13,6 +13,16 @@ export const getDoctorFullName = (doctor: Doctor, lang: string): string => {
   return doctor.name || '';
 };
 
+
+export const getDoctorDisplayName = (doctor: Doctor, lang: string): string => {
+  const fullName = getDoctorFullName(doctor, lang);
+  if (!fullName) return '';
+  if (lang === 'ar') {
+    return `د. ${fullName}`;
+  }
+  return `Dr. ${fullName}`;
+};
+
 export const getDoctorSpecialty = (doctor: Doctor, lang: string): string => {
   if (lang === 'ar' && doctor.specialtyAr) return doctor.specialtyAr;
   if (lang === 'fr' && doctor.specialtyFr) return doctor.specialtyFr;

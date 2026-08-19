@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { getStates, getCitiesForState } from '../../data/algeria';
 import { MEDICAL_SPECIALTIES } from '../../data/medicalSpecialties';
 import DoctorCard from './DoctorCard';
-import { getDoctorFullName, getDoctorSpecialty } from '../../utils/doctorUtils';
+import { getDoctorFullName, getDoctorDisplayName, getDoctorSpecialty } from '../../utils/doctorUtils';
 import { getStateName, getCityName } from '../../utils/locationUtils';
 import { WILAYAS, COMMUNES } from '../../data/algeria-data';
 
@@ -208,7 +208,7 @@ ${shareUrl}`;
                   </div>
                 )}
                 <div>
-                  <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">{getDoctorFullName(doctor, i18n.language)}</h3>
+                  <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors">{getDoctorDisplayName(doctor, i18n.language)}</h3>
                   <div className="flex items-center gap-1.5 text-sm text-slate-600 mt-1">
                     <Stethoscope className="w-4 h-4 text-blue-500" />
                     <span>{getDoctorSpecialty(doctor, i18n.language)}</span>
