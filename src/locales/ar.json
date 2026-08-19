@@ -479,5 +479,18 @@
   "uploading": "جاري الرفع...",
   "upload_error": "حدث خطأ أثناء رفع الصورة",
   "arabic": "عربي",
-  "french": "فرنسي"
+  "french": "فرنسي",
+  "appointments_exist_in_vacation_title": "توجد مواعيد محجوزة داخل فترة الإجازة",
+  "appointments_exist_in_vacation_desc": "يوجد موعد أو أكثر محجوز داخل فترة الإجازة التي اخترتها. يجب تغيير مواعيد المرضى الموجودة داخل أيام الإجازة قبل تأكيد الإجازة.",
+  "affected_appointments": "عدد المواعيد المتأثرة:",
+  "vacation_name_required_title": "اسم الإجازة مطلوب",
+  "vacation_name_required_desc": "يرجى إدخال اسم الإجازة أو سببها قبل حفظ الإجازة.",
+  "vacation_start_date_required_title": "تاريخ البداية مطلوب",
+  "vacation_start_date_required_desc": "يرجى اختيار تاريخ بداية الإجازة قبل المتابعة.",
+  "vacation_end_date_required_title": "تاريخ النهاية مطلوب",
+  "vacation_end_date_required_desc": "يرجى اختيار تاريخ نهاية الإجازة قبل المتابعة.",
+  "vacation_both_dates_required_title": "تاريخ الإجازة مطلوب",
+  "vacation_both_dates_required_desc": "يرجى اختيار تاريخ بداية ونهاية الإجازة قبل حفظها.",
+  "vacation_invalid_dates_title": "فترة الإجازة غير صحيحة",
+  "vacation_invalid_dates_desc": "لا يمكن أن يكون تاريخ نهاية الإجازة قبل تاريخ بدايتها."
 }

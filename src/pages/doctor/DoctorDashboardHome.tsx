@@ -161,7 +161,7 @@ const batch = writeBatch(db);
       : `Dr. ${doctorFullName}`;
       
     const pdfDateForArabic = isArabic
-      ? `</span></span><span class="pdf-date-value">${selectedDate}</span>:<span class="pdf-date-label"><span class="date-word">${t('date')}</span><span class="date-colon">`
+      ? `<span class="pdf-date-label"><span class="date-word">${t('date')}</span><span class="date-colon">:</span></span><span class="pdf-date-value">${selectedDate}</span>`
       : `<span class="pdf-date-label">${t('date')} :</span><span class="pdf-date-value">${selectedDate}</span>`;
 
     const escapeHtml = (value: string = '') =>

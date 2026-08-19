@@ -331,6 +331,8 @@ useEffect(() => {
 
   {days.map((day) => {
     const vacation = getVacationForDay(day);
+    const isToday = format(day, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
+    const isSelected = selectedDay && format(selectedDay, "yyyy-MM-dd") === format(day, "yyyy-MM-dd");
     return (
     <button
   key={day.toISOString()}
@@ -339,12 +341,13 @@ useEffect(() => {
   }}
   title={vacation ? (isAr ? vacation.titleAr : vacation.titleFr) : undefined}
   disabled={!!vacation}
-  className={`border rounded-xl p-4 text-center transition-colors relative group ${
+  className={`border rounded-xl p-4 text-center transition-all relative group ${
   vacation 
     ? "bg-red-50 text-red-400 border-red-200 cursor-not-allowed opacity-80"
-    : selectedDay &&
-  format(selectedDay, "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
-    ? "bg-blue-600 text-white border-blue-600"
+    : isSelected
+    ? "bg-blue-600 text-white border-blue-600 shadow-md scale-105 z-10"
+    : isToday
+    ? "bg-amber-50 border-amber-400 border-2 shadow-[0_0_15px_rgba(251,191,36,0.3)] animate-pulse hover:bg-amber-100"
     : !isWorkingDay(day)
     ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed"
     : appointmentsCount[format(day, "yyyy-MM-dd")] > 0
@@ -353,9 +356,10 @@ useEffect(() => {
       <div
   className={`font-bold ${
     vacation ? "text-red-500" :
-    selectedDay &&
-    format(selectedDay, "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
+    isSelected
       ? "text-white"
+      : isToday
+      ? "text-amber-600 text-xl font-black"
       : "text-slate-800"
   }`}>
         {format(day, "dd")}
@@ -363,9 +367,10 @@ useEffect(() => {
       <div
   className={`text-sm mt-1 ${
     vacation ? "text-red-400" :
-    selectedDay &&
-    format(selectedDay, "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
+    isSelected
       ? "text-blue-100"
+      : isToday
+      ? "text-amber-700 font-semibold"
       : "text-slate-500"
   }`}>
   {format(day, "EEEE", { locale })}</div>
@@ -378,9 +383,10 @@ useEffect(() => {
   ) : (
 <div
   className={`mt-2 text-xs font-medium ${
-    selectedDay &&
-    format(selectedDay, "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
+    isSelected
       ? "text-blue-100"
+      : isToday
+      ? "text-amber-700"
       : "text-blue-600"
   }`}>
   👥 {appointmentsCount[format(day, "yyyy-MM-dd")] || 0} {t("appointments")}</div>

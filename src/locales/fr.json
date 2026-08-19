@@ -479,5 +479,18 @@
   "uploading": "Téléchargement en cours...",
   "upload_error": "Une erreur s'est produite lors du téléchargement de l'image",
   "arabic": "Arabe",
-  "french": "Français"
+  "french": "Français",
+  "appointments_exist_in_vacation_title": "Des rendez-vous existent pendant cette période de congé",
+  "appointments_exist_in_vacation_desc": "Un ou plusieurs rendez-vous sont déjà réservés pendant la période de congé sélectionnée. Vous devez modifier les rendez-vous concernés avant de confirmer le congé.",
+  "affected_appointments": "Nombre de rendez-vous concernés :",
+  "vacation_name_required_title": "Le nom du congé est obligatoire",
+  "vacation_name_required_desc": "Veuillez saisir le nom ou le motif du congé avant d'enregistrer le congé.",
+  "vacation_start_date_required_title": "Date de début requise",
+  "vacation_start_date_required_desc": "Veuillez sélectionner une date de début de congé avant de continuer.",
+  "vacation_end_date_required_title": "Date de fin requise",
+  "vacation_end_date_required_desc": "Veuillez sélectionner une date de fin de congé avant de continuer.",
+  "vacation_both_dates_required_title": "Dates du congé requises",
+  "vacation_both_dates_required_desc": "Veuillez sélectionner les dates de début et de fin du congé avant de l'enregistrer.",
+  "vacation_invalid_dates_title": "Période de congé invalide",
+  "vacation_invalid_dates_desc": "La date de fin du congé ne peut pas être antérieure à la date de début."
 }
